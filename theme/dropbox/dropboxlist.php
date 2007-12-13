@@ -16,7 +16,8 @@ function dirList($directory)
 
         // if $file isn't this directory or its parent, 
         // add it to the results array
-        if ($file != '.' && $file != '..')
+		$isdir = is_dir($file);
+        if (($file != '.') && ($file != '..') && ($file != '.svn') && ($isdir != '1'))
             $results[] = $file;
     }
 

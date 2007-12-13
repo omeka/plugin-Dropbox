@@ -39,4 +39,30 @@ function dropbox_list()
 	include 'theme/dropbox/dropboxlist.php';
 }  */
 
+add_plugin_hook('after_save_form_item', 'dropbox_save_files');
+
+function dropbox_save_files($item, $post) {
+/*
+		if(!empty($_POST['file'])) {
+			// Handle the moving of files - sort of hacky and duplicates some code above
+			// Is there a better way to do this?  [DL]
+			foreach( $_POST['file'] as $filename )
+			{ 
+				try{
+					$file = new File();
+					$path = BASE_DIR.DIRECTORY_SEPARATOR.'plugins'.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$filename;
+					$file->moveToFileDir($path, $filename);
+					$file->item_id = $this->id;
+					$file->save();
+					fire_plugin_hook('after_upload_file', $file, $this);
+				}catch(Exception $e) {
+					if(!$file->exists()) {
+						$file->unlinkFile();
+					}
+				throw $e;
+				}
+			}	
+		}*/
+}
+
 ?>
