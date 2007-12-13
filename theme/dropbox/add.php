@@ -15,5 +15,5 @@ foreach ($files as $originalName) {
 	}
 ?>
 </table>
-
+</div>
 <?php foot(); ?>

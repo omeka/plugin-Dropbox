@@ -1,17 +1,3 @@
-<script type="text/javascript" charset="utf-8">
-function checkAll(field)
-{
-for (i = 0; i < field.length; i++)
-	field[i].checked = true ;
-}
-
-function uncheckAll(field)
-{
-for (i = 0; i < field.length; i++)
-	field[i].checked = false ;
-}
-</script>
-
 <form action="<?php echo uri('dropbox/add') ?>" name="form" method="post" accept-charset="utf-8">
 
 <?php
@@ -49,8 +35,11 @@ $filepath = PLUGIN_DIR . DIRECTORY_SEPARATOR . 'Dropbox' . DIRECTORY_SEPARATOR .
   if ($results == NULL) {
 	echo "<p>no files have been uploaded to the dropbox</p>";
 }
-
+ else {
+	echo '<ul id="file_checkboxes">';
 foreach ($results as $result) {
-	echo '<input type="checkbox" name="file[]" value="' . $result .'">' . $result . '<br />';
+	echo '<li><input type="checkbox" name="file[]" value="' . $result .'">' . $result . '</li>';
+}
+	echo '</ul>';
 }
 ?>
