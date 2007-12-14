@@ -39,6 +39,8 @@ class Dropbox_IndexController extends Omeka_Controller_Action
 			try{
 				$file = new File();
 				$oldpath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$originalName;
+				$this->checkPermissions($oldpath);
+				
 				$file->moveToFileDir($oldpath, $originalName);
 				
 				$item = new Item;
@@ -50,14 +52,22 @@ class Dropbox_IndexController extends Omeka_Controller_Action
 				$file->item_id = $item->id;
 				$file->save();
 				
-//				$item->afterSaveForm($_POST);
-				
 			}catch(Exception $e) {
 				$file->delete();
 				throw $e;
 			}
 		}
 
+	}
+	
+	protected function checkPermissions($path)
+	{
+		$filesdir = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files';
+		if (is_readable($path) && is_writable($filesdir)) {
+		} else {
+			echo ('check that the dropbox files folder is readable, and individual files are writable');
+			die;		
+		}
 	}
 
 
