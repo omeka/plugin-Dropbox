@@ -30,8 +30,6 @@ function dropbox_install()
 
 }
 
-/*  uncomment after fixing saveFiles() in Item model to handle moving these files
-
 add_plugin_hook('append_to_item_form_upload', 'dropbox_list');
 
 function dropbox_list()
@@ -44,17 +42,16 @@ add_plugin_hook('after_save_form_item', 'dropbox_save_files');
 function dropbox_save_files($item, $post) {
 
 		if(!empty($_POST['file'])) {
-			// Handle the moving of files - sort of hacky and duplicates some code above
-			// Is there a better way to do this?  [DL]
+			// Handle the moving of files [DL]
 			foreach( $_POST['file'] as $filename )
 			{ 
 				try{
 					$file = new File();
 					$path = BASE_DIR.DIRECTORY_SEPARATOR.'plugins'.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$filename;
 					$file->moveToFileDir($path, $filename);
-					$file->item_id = $this->id;
+					$file->item_id = $item->id;
 					$file->save();
-					fire_plugin_hook('after_upload_file', $file, $this);
+					fire_plugin_hook('after_upload_file', $file, $item);
 				}catch(Exception $e) {
 					if(!$file->exists()) {
 						$file->unlinkFile();
@@ -63,6 +60,6 @@ function dropbox_save_files($item, $post) {
 				}
 			}	
 		}
-} */
+}
 
 ?>
