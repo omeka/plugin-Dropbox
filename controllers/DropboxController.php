@@ -1,10 +1,10 @@
-	<?php 
+<?php 
 
 require_once MODEL_DIR.DIRECTORY_SEPARATOR.'File.php';
 
 require_once 'Omeka/Controller/Action.php';
 
-class Dropbox_IndexController extends Omeka_Controller_Action
+class DropboxController extends Omeka_Controller_Action
 {	
 
 	public function indexAction()
