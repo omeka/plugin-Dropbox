@@ -1,3 +1,8 @@
+<div id="site-info">
+			<div id="site-meta">
+				<fieldset>
+				<h2>Select Files From Dropbox</h2>
+
 <form action="<?php echo uri('dropbox/add') ?>" name="form" method="post" accept-charset="utf-8">
 
 <?php
@@ -44,3 +49,6 @@ foreach ($results as $result) {
 	echo '</ul>';
 }
 ?>
+
+	</div>
+</div>

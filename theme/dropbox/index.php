@@ -1,5 +1,6 @@
 <?php head(array('title' => 'Dropbox', 'body_class' => 'archive-plugin')); ?>
 <?php common('archive-nav'); ?>
+
 <script type="text/javascript" charset="utf-8">
     function allCheckboxes(checked) {
 		$$('#file_checkboxes input').each(function(i) {
@@ -22,22 +23,13 @@
 	});
 
 </script>
+
 <div id="primary">
 	<p>To batch upload files, upload them to the /files/ folder of the Dropbox plugin.  After refreshing this page, they should appear listed below.</p>
-	
-	<fieldset>
-	<legend>Select Files From Dropbox</legend>
-	<p>Select the individual files you wish to upload, or <a id="select-all" href="#">select all</a> / <a id="select-none" href="#">unselect all</a></p>
-	
+		
+		<p>Select the individual files you wish to upload, or <a id="select-all" href="#">select all</a> / <a id="select-none" href="#">unselect all</a></p>
+
 <?php include 'dropboxlist.php'; ?>
-
-<?php
-
-//echo PLUGIN_DIR;
-
-?>
-
-	</fieldset>
 
 	<fieldset>
 			<legend>Set Properties for Batch Upload</legend>
@@ -76,6 +68,8 @@
 		<input type="submit" name="submit" id="add_items" value="Upload Files / Items" />
 	</fieldset>
 	</form>
+
+	<p>Further information about using and installing the Dropbox plugin can be found on the <a href="http://omeka.org/codex/dropbox_plugin">Omeka Codex</a></p>
 
 </div>
 

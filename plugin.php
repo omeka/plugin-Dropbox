@@ -11,6 +11,14 @@ function dropbox_initialize()
 	add_navigation('Batch Add', 'dropbox', 'archive', array('Entities','add'));
 }
 
+function dropbox_routes($router)
+{
+//	$router->addRoute('dropbox', new Zend_Controller_Router_Route('dropbox/', array('controller'=>'index', 'action'=>'index', 'module'=>'dropbox')));
+	
+//	$router->addRoute('dropbox_actions', new Zend_Controller_Router_Route('dropbox/:action', array('controller'=>'index', 'module'=>'dropbox', 'action'=>'index')));
+
+}
+
 add_plugin_hook('install', 'dropbox_install');
 
 function dropbox_install()

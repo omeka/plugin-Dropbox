@@ -1,4 +1,4 @@
-<?php 
+	<?php 
 
 require_once MODEL_DIR.DIRECTORY_SEPARATOR.'File.php';
 
@@ -16,13 +16,12 @@ class DropboxController extends Omeka_Controller_Action
 	{
 		$files = $_POST['file'];
 		
-		if ($_POST) {
-
+		if ($_POST && $files) {
 	 	$this->uploadAction($files);
 		
 		return $this->render('dropbox/add.php');
 		} else {
-			echo "you have improperly accessed the contents of this page";
+			echo "<h2>Whoa there!</h2>  You have submitted the Dropbox form without selecting any items.  Go back and try again";
 		}
 	}
 	
@@ -33,7 +32,6 @@ class DropboxController extends Omeka_Controller_Action
 
 	protected function uploadAction($files)
 	{	
-		
 		foreach ($files as $originalName) {
 			
 			try{
@@ -57,7 +55,6 @@ class DropboxController extends Omeka_Controller_Action
 				throw $e;
 			}
 		}
-
 	}
 	
 	protected function checkPermissions($path)
@@ -65,7 +62,7 @@ class DropboxController extends Omeka_Controller_Action
 		$filesdir = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files';
 		if (is_readable($path) && is_writable($filesdir)) {
 		} else {
-			echo ('check that the dropbox files folder is readable, and individual files are writable');
+			echo ('<h1>Whoops!</h1><p>Check that the dropbox files folder is readable, and individual files are writable.  More information is on the Omeka Codex <a href="http://omeka.org/codex/dropbox_plugin">http://omeka.org/codex/dropbox_plugin</a>');
 			die;		
 		}
 	}
