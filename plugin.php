@@ -1,6 +1,6 @@
 <?php 
 
-define('DROPBOX_PLUGIN_VERSION', 0.1);
+define('DROPBOX_PLUGIN_VERSION', '0.9.0');
 
 add_plugin_hook('initialize', 'dropbox_initialize');
 
