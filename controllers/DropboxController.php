@@ -45,6 +45,7 @@ class DropboxController extends Omeka_Controller_Action
 				$item->title = $originalName;
 				$item->public = $_POST['public'];
 				$item->featured = $_POST['featured'];
+				$item->collection_id = $_POST['collection_id'];
 				$item->save();
 				
 				$file->item_id = $item->id;
