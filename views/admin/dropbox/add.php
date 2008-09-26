@@ -1,5 +1,5 @@
 <?php head(array('title' => 'Dropbox')); ?>
-<?php common('archive-nav'); ?>
+
 <div id="primary">
 
 	<p>You've successfully batch uploaded the following files:</p>

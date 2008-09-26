@@ -1,33 +1,22 @@
-	<?php 
-
+<?php 
 require_once MODEL_DIR.DIRECTORY_SEPARATOR.'File.php';
 
-require_once 'Omeka/Controller/Action.php';
-
-class DropboxController extends Omeka_Controller_Action
+class Dropbox_DropboxController extends Omeka_Controller_Action
 {	
+    public function init() {}
 
-	public function indexAction()
-	{	
-		return $this->renderDropbox($item);		
-	}
+	public function indexAction() {}
 
 	public function addAction()
 	{
 		$files = $_POST['file'];
-		
+
 		if ($_POST && $files) {
 	 	$this->uploadAction($files);
-		
-		return $this->render('dropbox/add.php');
+
 		} else {
 			echo "<h2>Whoa there!</h2>  You have submitted the Dropbox form without selecting any items.  Go back and try again";
 		}
-	}
-	
-	protected function renderDropbox($item)
-	{
-		return $this->render('dropbox/index.php', compact('item'));
 	}
 
 	protected function uploadAction($files)
@@ -39,14 +28,25 @@ class DropboxController extends Omeka_Controller_Action
 				$oldpath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$originalName;
 				$this->checkPermissions($oldpath);
 				
-				$file->moveToFileDir($oldpath, $originalName);
+                // formerly contained in moveToFileDir()
+                $path = $file->moveFileToArchive($oldpath, $filename, false);
+                $file->setDefaults($path);
+                $file->original_filename = $originalName;
+                $file->createDerivativeImages($path);
+                $file->extractMimeMetadata($path);
 				
 				$item = new Item;
-				$item->title = $originalName;
 				$item->public = $_POST['public'];
 				$item->featured = $_POST['featured'];
 				$item->collection_id = $_POST['collection_id'];
 				$item->save();
+				
+				$elementText = new ElementText;
+				$elementText->record_id = $item->id;
+				$elementText->record_type_id = 1;
+				$elementText->element_id = 53;
+				$elementText->text = $originalName;
+				$elementText->save();
 				
 				$file->item_id = $item->id;
 				$file->save();
@@ -67,8 +67,6 @@ class DropboxController extends Omeka_Controller_Action
 			die;		
 		}
 	}
-
-
 }
  
 ?>

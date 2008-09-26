@@ -1,5 +1,4 @@
-<?php head(array('title' => 'Dropbox', 'body_class' => 'archive-plugin')); ?>
-<?php common('archive-nav'); ?>
+<?php head(array('title' => 'Dropbox', 'body_class' => 'dropbox-plugin')); ?>
 
 <script type="text/javascript" charset="utf-8">
     function allCheckboxes(checked) {
@@ -24,6 +23,8 @@
 
 </script>
 
+<h1>Dropbox Plugin</h1>
+
 <div id="primary">
 	<p>To batch upload files, upload them to the /files/ folder of the Dropbox plugin.  After refreshing this page, they should appear listed below.</p>
 		
@@ -45,14 +46,12 @@
 
 	<fieldset id="collection-metadata">
 		<legend>Collection Metadata</legend>
-		<div class="field">
-		<?php select('collection_id',
-					collections(),
-					$item->collection_id,
-					'Collection',
-					'id',
-					'name' ); ?>
-		</div>
+        <div class="field">
+        <?php echo label('collection-id', 'Collection');?>
+        <div class="inputs">
+        	<?php echo select_collection(array('name'=>'collection_id', 'id'=>'collection-id'),$item->collection_id); ?>
+        </div>
+        </div>
 	</fieldset>
 
 	<fieldset>
