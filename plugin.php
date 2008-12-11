@@ -1,33 +1,40 @@
 <?php 
-// Add ACL checks before releasing plugin
-define('DROPBOX_PLUGIN_VERSION', 0.2);
-define('DROPBOX_PATH', 'dropbox/');
+/**
+ * @version $Id$
+ * @copyright Center for History and New Media, 2008
+ * @license http://www.gnu.org/licenses/gpl-3.0.txt
+ * @package Dropbox
+ */
 
-add_plugin_directories();
+// Define the plugin version.
+define('DROPBOX_PLUGIN_VERSION', 0.3);
 
 add_plugin_hook('install', 'dropbox_install');
 add_plugin_hook('after_save_form_item', 'dropbox_save_files');
 add_plugin_hook('append_to_item_form_upload', 'dropbox_list');
 add_plugin_hook('add_routes', 'dropbox_routes');
+add_plugin_hook('define_acl', 'dropbox_define_acl');
 
 add_filter('admin_navigation_main', 'dropbox_admin_nav');
 
 function dropbox_admin_nav($navArray)
 {
-    return $navArray + array('Dropbox' => uri('dropbox'));
+    if (has_permission('Dropbox_Dropbox', 'index')) {
+        $navArray = $navArray + array('Dropbox' => uri('dropbox'));
+    }
+    return $navArray;
 }
 
 function dropbox_install()
 {
-		set_option('dropbox_plugin_version', DROPBOX_PLUGIN_VERSION);
+	set_option('dropbox_plugin_version', DROPBOX_PLUGIN_VERSION);
 }
 
 function dropbox_routes($router) {
-    
     $router->addRoute(
         'dropbox_default', 
         new Zend_Controller_Router_Route(
-            DROPBOX_PATH, 
+            'dropbox/', 
             array(
                 'controller' => 'dropbox', 
                 'action'     => 'index', 
@@ -38,7 +45,7 @@ function dropbox_routes($router) {
     $router->addRoute(
         'dropbox_actions', 
         new Zend_Controller_Router_Route(
-            DROPBOX_PATH . ':action', 
+            'dropbox/' . ':action', 
             array(
                 'controller' => 'dropbox', 
                 'module'     => 'dropbox'
@@ -47,22 +54,25 @@ function dropbox_routes($router) {
     );
 }
 
+function dropbox_define_acl($acl)
+{
+    $acl->loadResourceList(array('Dropbox_Dropbox' => array('index','add','upload')));
+}
+
 function dropbox_list()
 {
-	include 'theme/admin/dropbox/dropboxlist.php';
+	include 'views/admin/dropbox/dropboxlist.php';
 }  
 
 function dropbox_save_files($item, $post) {
 
 		if(!empty($_POST['file'])) {
-			// Handle the moving of files [DL]
 			foreach( $_POST['file'] as $filename )
 			{ 
 				try{
 					$file = new File();
 					$oldpath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$filename;
 
-                    // formerly contained in moveToFileDir()
                     $path = $file->moveFileToArchive($oldpath, $filename, false);
                     $file->setDefaults($path);
                     $file->original_filename = $name;
@@ -81,5 +91,3 @@ function dropbox_save_files($item, $post) {
 			}	
 		}
 }
-
-?>

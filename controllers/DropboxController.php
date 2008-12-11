@@ -1,28 +1,26 @@
 <?php 
-require_once MODEL_DIR.DIRECTORY_SEPARATOR.'File.php';
+require_once 'File.php';
 
 class Dropbox_DropboxController extends Omeka_Controller_Action
 {	
-    public function init() {}
-
 	public function indexAction() {}
 
 	public function addAction()
 	{
 		$files = $_POST['file'];
-
-		if ($_POST && $files) {
-	 	$this->uploadAction($files);
-
-		} else {
-			echo "<h2>Whoa there!</h2>  You have submitted the Dropbox form without selecting any items.  Go back and try again";
-		}
+        if ($files) {
+            try {
+    	 	    $this->uploadAction($files);           
+            }catch(Exception $e) {
+			    $file->delete();
+			    throw $e;
+		    }
+	    }
 	}
 
 	protected function uploadAction($files)
 	{	
 		foreach ($files as $originalName) {
-			
 			try{
 				$file = new File();
 				$oldpath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$originalName;
@@ -68,5 +66,3 @@ class Dropbox_DropboxController extends Omeka_Controller_Action
 		}
 	}
 }
- 
-?>

@@ -1,4 +1,4 @@
-<?php head(array('title' => 'Dropbox', 'body_class' => 'dropbox-plugin')); ?>
+<?php head(array('title' => 'Dropbox')); ?>
 
 <script type="text/javascript" charset="utf-8">
     function allCheckboxes(checked) {
@@ -20,7 +20,6 @@
 			return;
 		});
 	});
-
 </script>
 
 <h1>Dropbox Plugin</h1>

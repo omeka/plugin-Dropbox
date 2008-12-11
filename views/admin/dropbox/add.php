@@ -1,19 +1,20 @@
-<?php head(array('title' => 'Dropbox')); ?>
+<?php head(); ?>
+
+<h1>Dropbox Plugin</h1>
 
 <div id="primary">
 
-	<p>You've successfully batch uploaded the following files:</p>
-
-<table>
+<?php if ($files = $_POST['file']): ?>
+	<p>You've successfully batch uploaded the following file(s):</p>
+<ul>
 <?php 	
-$files = $_POST['file'];
-
 foreach ($files as $originalName) {
 	?>
-	<tr><td></td><td><h2><?php echo $originalName; ?></h2></td></tr>
-<?php 
-	}
-?>
-</table>
+	<li><?php echo $originalName; ?></li>
+<?php } ?>
+</ul>
+<?php else: ?>
+    <h4>You must select a file to upload.  Please return and try again.</h4>
+<?php endif; ?>
 </div>
 <?php foot(); ?>
