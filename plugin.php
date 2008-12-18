@@ -99,14 +99,13 @@ function dropbox_save_files($item, $post) {
 function dropbox_insert_item($itemMetadata = array(), $elementTexts = array())
 {
     // Insert a new Item
-    $item = New Item;
+    $item = new Item;
     
     // Item Metadata
     $item->public           = $itemMetadata['public'];
     $item->featured         = $itemMetadata['featured'];
     $item->collection_id    = $itemMetadata['collection_id'];
-    $item->collection_name  = $itemMetadata['collection_name'];
-    
+        
     foreach ($elementTexts as $elementSetName => $elements) {
         foreach ($elements as $elementName => $elementTexts) {
             $element = $item->getElementByNameAndSetName($elementName, $elementSetName);
@@ -122,5 +121,5 @@ function dropbox_insert_item($itemMetadata = array(), $elementTexts = array())
     // Save Element Texts
     $item->saveElementTexts();
     
-    return $item->id;
+    return $item;
 }

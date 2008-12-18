@@ -37,9 +37,12 @@ class Dropbox_DropboxController extends Omeka_Controller_Action
 				
                 $elementTexts = array('Dublin Core' => array('Title' => array(array('text' => $originalName, 'html' => false))));
                 $item = dropbox_insert_item($itemMetadata, $elementTexts);
-
+                
+                // Add the tags for the given user.
+                $item->addTags($_POST['tags'], current_user()->Entity);
+                
 				// associate the file with the new Item ID
-                 $file->item_id = $item;
+                 $file->item_id = $item->id;
                  $file->save();
 			}catch(Exception $e) {
 				$file->delete();
