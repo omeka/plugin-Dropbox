@@ -91,3 +91,36 @@ function dropbox_save_files($item, $post) {
 			}	
 		}
 }
+
+/**
+* This function will be deprecated in the upcoming 1.0 release
+* in favor of an insert_item function added to the core
+**/
+function dropbox_insert_item($itemMetadata = array(), $elementTexts = array())
+{
+    // Insert a new Item
+    $item = New Item;
+    
+    // Item Metadata
+    $item->public           = $itemMetadata['public'];
+    $item->featured         = $itemMetadata['featured'];
+    $item->collection_id    = $itemMetadata['collection_id'];
+    $item->collection_name  = $itemMetadata['collection_name'];
+    
+    foreach ($elementTexts as $elementSetName => $elements) {
+        foreach ($elements as $elementName => $elementTexts) {
+            $element = $item->getElementByNameAndSetName($elementName, $elementSetName);
+            foreach ($elementTexts as $elementText) {
+                $item->addTextForElement($element, $elementText['text'], $elementText['html']);
+            }
+        }
+    }
+    
+    // Save Item and all of its metadata
+    $item->save();
+    
+    // Save Element Texts
+    $item->saveElementTexts();
+    
+    return $item->id;
+}

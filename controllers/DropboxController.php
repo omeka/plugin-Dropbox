@@ -12,7 +12,6 @@ class Dropbox_DropboxController extends Omeka_Controller_Action
             try {
     	 	    $this->uploadAction($files);           
             }catch(Exception $e) {
-			    $file->delete();
 			    throw $e;
 		    }
 	    }
@@ -26,29 +25,22 @@ class Dropbox_DropboxController extends Omeka_Controller_Action
 				$oldpath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$originalName;
 				$this->checkPermissions($oldpath);
 				
-                // formerly contained in moveToFileDir()
                 $path = $file->moveFileToArchive($oldpath, $filename, false);
                 $file->setDefaults($path);
                 $file->original_filename = $originalName;
                 $file->createDerivativeImages($path);
                 $file->extractMimeMetadata($path);
+
+                $itemMetadata = array(  'public'            => $_POST['public'],
+                                        'featured'          => $_POST['featured'],
+                                        'collection_id'     => $_POST['collection_id']);
 				
-				$item = new Item;
-				$item->public = $_POST['public'];
-				$item->featured = $_POST['featured'];
-				$item->collection_id = $_POST['collection_id'];
-				$item->save();
-				
-				$elementText = new ElementText;
-				$elementText->record_id = $item->id;
-				$elementText->record_type_id = 1;
-				$elementText->element_id = 53;
-				$elementText->text = $originalName;
-				$elementText->save();
-				
-				$file->item_id = $item->id;
-				$file->save();
-				
+                $elementTexts = array('Dublin Core' => array('Title' => array(array('text' => $originalName, 'html' => false))));
+                $item = dropbox_insert_item($itemMetadata, $elementTexts);
+
+				// associate the file with the new Item ID
+                 $file->item_id = $item;
+                 $file->save();
 			}catch(Exception $e) {
 				$file->delete();
 				throw $e;
