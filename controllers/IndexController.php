@@ -25,7 +25,7 @@ class Dropbox_IndexController extends Omeka_Controller_Action
 				$oldpath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$originalName;
 				$this->checkPermissions($oldpath);
 				
-                $path = $file->moveFileToArchive($oldpath, $filename, false);
+                $path = $file->moveFileToArchive($oldpath, $originalName, false);
                 $file->setDefaults($path);
                 $file->original_filename = $originalName;
                 $file->createDerivativeImages($path);
