@@ -50,7 +50,7 @@ function dropbox_save_files($item, $post) {
 
                     $path = $file->moveFileToArchive($oldpath, $filename, false);
                     $file->setDefaults($path);
-                    $file->original_filename = $name;
+                    $file->original_filename = $filename;
                     $file->createDerivativeImages($path);
                     $file->extractMimeMetadata($path);
 
