@@ -29,6 +29,8 @@
 		
 		<p>Select the individual files you wish to upload, or <a id="select-all" href="#">select all</a> / <a id="select-none" href="#">unselect all</a></p>
 
+    <form action="<?php echo uri(array('action'=>'add')); ?>" name="form" method="post" accept-charset="utf-8">
+
 <?php include 'dropboxlist.php'; ?>
 
 	<fieldset>
