@@ -1,7 +1,7 @@
 <?php 
 require_once 'File.php';
 
-class Dropbox_DropboxController extends Omeka_Controller_Action
+class Dropbox_IndexController extends Omeka_Controller_Action
 {	
 	public function indexAction() {}
 

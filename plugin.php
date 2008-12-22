@@ -12,15 +12,14 @@ define('DROPBOX_PLUGIN_VERSION', 0.3);
 add_plugin_hook('install', 'dropbox_install');
 add_plugin_hook('after_save_form_item', 'dropbox_save_files');
 add_plugin_hook('append_to_item_form_upload', 'dropbox_list');
-add_plugin_hook('add_routes', 'dropbox_routes');
 add_plugin_hook('define_acl', 'dropbox_define_acl');
 
 add_filter('admin_navigation_main', 'dropbox_admin_nav');
 
 function dropbox_admin_nav($navArray)
 {
-    if (has_permission('Dropbox_Dropbox', 'index')) {
-        $navArray = $navArray + array('Dropbox' => uri('dropbox'));
+    if (has_permission('Dropbox_Index', 'index')) {
+        $navArray = $navArray + array('Dropbox' => uri(array('module'=>'dropbox', 'controller'=>'index', 'action'=>'index'), 'default'));
     }
     return $navArray;
 }
@@ -30,38 +29,14 @@ function dropbox_install()
 	set_option('dropbox_plugin_version', DROPBOX_PLUGIN_VERSION);
 }
 
-function dropbox_routes($router) {
-    $router->addRoute(
-        'dropbox_default', 
-        new Zend_Controller_Router_Route(
-            'dropbox/', 
-            array(
-                'controller' => 'dropbox', 
-                'action'     => 'index', 
-                'module'     => 'dropbox'
-            )
-        )
-    );
-    $router->addRoute(
-        'dropbox_actions', 
-        new Zend_Controller_Router_Route(
-            'dropbox/' . ':action', 
-            array(
-                'controller' => 'dropbox', 
-                'module'     => 'dropbox'
-            )
-        )
-    );
-}
-
 function dropbox_define_acl($acl)
 {
-    $acl->loadResourceList(array('Dropbox_Dropbox' => array('index','add','upload')));
+    $acl->loadResourceList(array('Dropbox_Index' => array('index','add','upload')));
 }
 
 function dropbox_list()
 {
-	include 'views/admin/dropbox/dropboxlist.php';
+	common('dropboxlist', array(), 'index');
 }  
 
 function dropbox_save_files($item, $post) {

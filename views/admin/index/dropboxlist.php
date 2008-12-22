@@ -3,7 +3,7 @@
 				<fieldset>
 				<h2>Select Files From Dropbox</h2>
 
-<form action="<?php echo uri('dropbox/add') ?>" name="form" method="post" accept-charset="utf-8">
+<form action="<?php echo uri(array('action'=>'add')); ?>" name="form" method="post" accept-charset="utf-8">
 
 <?php
 
