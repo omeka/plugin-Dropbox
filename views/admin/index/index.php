@@ -1,4 +1,4 @@
-<?php head(array('title' => 'Dropbox')); ?>
+<?php head(array('title' => 'Dropbox', 'bodyclass' => 'dropbox')); ?>
 
 <script type="text/javascript" charset="utf-8">
     function allCheckboxes(checked) {
@@ -10,12 +10,14 @@
 	Event.observe(window,'load',function() {
 
 		//Select all the checkboxes
-		Event.observe($('select-all'),'click',function() {
+		Event.observe($('select-all'),'click',function(e) {
+		    e.stop();
 			allCheckboxes(true);
 			return;
 		});
 
-		Event.observe('select-none','click',function() {
+		Event.observe('select-none','click',function(e) {
+		    e.stop();
 			allCheckboxes(false);
 			return;
 		});

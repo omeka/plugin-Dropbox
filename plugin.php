@@ -10,6 +10,7 @@
 define('DROPBOX_PLUGIN_VERSION', 0.3);
 
 add_plugin_hook('install', 'dropbox_install');
+add_plugin_hook('uninstall', 'dropbox_uninstall');
 add_plugin_hook('after_save_form_item', 'dropbox_save_files');
 add_plugin_hook('append_to_item_form_upload', 'dropbox_list');
 add_plugin_hook('define_acl', 'dropbox_define_acl');
@@ -27,6 +28,11 @@ function dropbox_admin_nav($navArray)
 function dropbox_install()
 {
 	set_option('dropbox_plugin_version', DROPBOX_PLUGIN_VERSION);
+}
+
+function dropbox_uninstall()
+{
+    delete_option('dropbox_plugin_version');
 }
 
 function dropbox_define_acl($acl)
