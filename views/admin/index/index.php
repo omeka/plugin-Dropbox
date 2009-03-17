@@ -1,36 +1,9 @@
 <?php head(array('title' => 'Dropbox', 'bodyclass' => 'dropbox')); ?>
 
-<script type="text/javascript" charset="utf-8">
-    function allCheckboxes(checked) {
-		$$('#file_checkboxes input').each(function(i) {
-			i.checked = checked;
-		});
-	}
-
-	Event.observe(window,'load',function() {
-
-		//Select all the checkboxes
-		Event.observe($('select-all'),'click',function(e) {
-		    e.stop();
-			allCheckboxes(true);
-			return;
-		});
-
-		Event.observe('select-none','click',function(e) {
-		    e.stop();
-			allCheckboxes(false);
-			return;
-		});
-	});
-</script>
-
 <h1>Dropbox Plugin</h1>
 
 <div id="primary">
-	<p>To batch upload files, upload them to the /files/ folder of the Dropbox plugin.  After refreshing this page, they should appear listed below.</p>
-		
-		<p>Select the individual files you wish to upload, or <a id="select-all" href="#">select all</a> / <a id="select-none" href="#">unselect all</a></p>
-
+	<p>To batch upload files, upload them to the /files/ folder of the Dropbox plugin.  After refreshing this page, they should appear listed below.</p>    
     <form action="<?php echo uri(array('action'=>'add')); ?>" name="form" method="post" accept-charset="utf-8">
 
 <?php include 'dropboxlist.php'; ?>

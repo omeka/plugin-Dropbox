@@ -7,7 +7,7 @@
  */
 
 // Define the plugin version.
-define('DROPBOX_PLUGIN_VERSION', 0.3);
+define('DROPBOX_PLUGIN_VERSION', 0.4);
 
 add_plugin_hook('install', 'dropbox_install');
 add_plugin_hook('uninstall', 'dropbox_uninstall');
@@ -45,62 +45,42 @@ function dropbox_list()
 	common('dropboxlist', array(), 'index');
 }  
 
-function dropbox_save_files($item, $post) {
-
-		if(!empty($_POST['file'])) {
-			foreach( $_POST['file'] as $filename )
-			{ 
-				try{
-					$file = new File();
-					$oldpath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$filename;
-
-                    $path = $file->moveFileToArchive($oldpath, $filename, false);
-                    $file->setDefaults($path);
-                    $file->original_filename = $filename;
-                    $file->createDerivativeImages($path);
-                    $file->extractMimeMetadata($path);
-
-					$file->item_id = $item->id;
-					$file->save();
-					fire_plugin_hook('after_upload_file', $file, $item);
-				}catch(Exception $e) {
-					if(!$file->exists()) {
-						$file->unlinkFile();
-					}
-				throw $e;
-				}
-			}	
+function dropbox_save_files($item, $post) 
+{
+	if(!empty($_POST['file'])) {
+	    
+	    $filePaths = array();
+		foreach( $_POST['file'] as $fileName ) { 
+			$filePath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$fileName; 
+			dropbox_check_permissions($filePath);
+			$filePaths[] = $filePath;                  
 		}
+		
+		$files = array();
+		try {
+			$files = insert_files_for_item($item, 'Filesystem', $filePaths);
+		} catch (Exception $e) {
+		    release_object($files);
+		    throw $e;
+		}
+        release_object($files);
+        
+        // delete the files
+        foreach($filePaths as $filePath) {
+            try {
+                unlink($filePath);
+            } catch (Exception $e) {
+                throw $e;
+            }
+        }	
+	}
 }
 
-/**
-* This function will be deprecated in the upcoming 1.0 release
-* in favor of an insert_item function added to the core
-**/
-function dropbox_insert_item($itemMetadata = array(), $elementTexts = array())
+function dropbox_check_permissions($filePath)
 {
-    // Insert a new Item
-    $item = new Item;
-    
-    // Item Metadata
-    $item->public           = $itemMetadata['public'];
-    $item->featured         = $itemMetadata['featured'];
-    $item->collection_id    = $itemMetadata['collection_id'];
-        
-    foreach ($elementTexts as $elementSetName => $elements) {
-        foreach ($elements as $elementName => $elementTexts) {
-            $element = $item->getElementByNameAndSetName($elementName, $elementSetName);
-            foreach ($elementTexts as $elementText) {
-                $item->addTextForElement($element, $elementText['text'], $elementText['html']);
-            }
-        }
-    }
-    
-    // Save Item and all of its metadata
-    $item->save();
-    
-    // Save Element Texts
-    $item->saveElementTexts();
-    
-    return $item;
+	$filesDir = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files';
+	if (!(is_readable($filePath) && is_writable($filesDir))) {
+		echo ('<h1>Whoops!</h1><p>Check that the dropbox files folder is readable, and individual files are writable.  More information is on the Omeka Codex <a href="http://omeka.org/codex/dropbox_plugin">http://omeka.org/codex/dropbox_plugin</a>');
+		die;		
+	}
 }
