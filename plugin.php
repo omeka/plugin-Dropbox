@@ -7,7 +7,7 @@
  */
 
 // Define the plugin version.
-define('DROPBOX_PLUGIN_VERSION', 0.3);
+define('DROPBOX_PLUGIN_VERSION', get_plugin_ini('Dropbox', 'version'));
 
 add_plugin_hook('install', 'dropbox_install');
 add_plugin_hook('uninstall', 'dropbox_uninstall');
