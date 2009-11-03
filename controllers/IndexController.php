@@ -9,11 +9,18 @@ class Dropbox_IndexController extends Omeka_Controller_Action
 		$files = $_POST['file'];
         if ($files) {
             try {
-    	 	    $this->uploadAction($files);           
+    	 	    $this->uploadAction($files);                
+            } catch (Omeka_File_Ingest_InvalidException $e) {
+                $this->flashError($e->getMessage());
+			    $this->redirect->goto('index');
             } catch(Exception $e) {
 			    throw $e;
 		    }
+	    } else {
+	        $this->flashError('You must select a file to upload.');
+            $this->redirect->goto('index');
 	    }
+	    $this->view->assign(compact('files'));
 	}
 
 	protected function uploadAction($fileNames)
@@ -32,8 +39,8 @@ class Dropbox_IndexController extends Omeka_Controller_Action
 		    
 			$item = null;
 			try{
-                $itemMetadata = array(  'public'            => $_POST['public'],
-                                        'featured'          => $_POST['featured'],
+                $itemMetadata = array(  'public'            => $_POST['dropbox-public'],
+                                        'featured'          => $_POST['dropbox-featured'],
                                         'collection_id'     => $_POST['collection_id'],
                                         'tags'              => $_POST['tags']
                                      );

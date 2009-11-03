@@ -1,11 +1,9 @@
-				<h2>Select Files From Dropbox</h2>
-
+<h2>Select Files From Dropbox</h2>
 
 <?php
 
 function dirList($directory) 
 {
-
     // create an array to hold directory list
     $results = array();
 
@@ -27,7 +25,6 @@ function dirList($directory)
 
     // done!
     return $results;
-
 }
 
 $filepath = PLUGIN_DIR . DIRECTORY_SEPARATOR . 'Dropbox' . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR;
@@ -64,7 +61,7 @@ if ($results == NULL) {
     <ul id="file_checkboxes">
 <?php
     foreach ($results as $result) {
-        echo '<li><input type="checkbox" name="file[]" value="' . $result .'">' . $result . '</li>';
+        echo '<li><input type="checkbox" name="file[]" value="' . html_escape($result) .'"/>' . html_escape($result) . '</li>';
     }
     echo '</ul>';
 }

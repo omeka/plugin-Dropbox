@@ -6,33 +6,20 @@
  * @package Dropbox
  */
 
-// Define the plugin version.
-define('DROPBOX_PLUGIN_VERSION', get_plugin_ini('Dropbox', 'version'));
-
-add_plugin_hook('install', 'dropbox_install');
-add_plugin_hook('uninstall', 'dropbox_uninstall');
+// Define hooks
 add_plugin_hook('after_save_form_item', 'dropbox_save_files');
-add_plugin_hook('append_to_item_form_upload', 'dropbox_list');
+add_plugin_hook('admin_append_to_items_form_files', 'dropbox_list');
 add_plugin_hook('define_acl', 'dropbox_define_acl');
 
+// Define filters
 add_filter('admin_navigation_main', 'dropbox_admin_nav');
 
 function dropbox_admin_nav($navArray)
 {
     if (has_permission('Dropbox_Index', 'index')) {
-        $navArray = $navArray + array('Dropbox' => uri(array('module'=>'dropbox', 'controller'=>'index', 'action'=>'index'), 'default'));
+        $navArray['Dropbox'] = uri(array('module'=>'dropbox', 'controller'=>'index', 'action'=>'index'), 'default');
     }
     return $navArray;
-}
-
-function dropbox_install()
-{
-	set_option('dropbox_plugin_version', DROPBOX_PLUGIN_VERSION);
-}
-
-function dropbox_uninstall()
-{
-    delete_option('dropbox_plugin_version');
 }
 
 function dropbox_define_acl($acl)
@@ -47,7 +34,7 @@ function dropbox_list()
 
 function dropbox_save_files($item, $post) 
 {
-	if(!empty($_POST['file'])) {
+	if (!empty($_POST['file'])) {
 	    
 	    $filePaths = array();
 		foreach( $_POST['file'] as $fileName ) { 
