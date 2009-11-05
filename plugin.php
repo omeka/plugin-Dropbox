@@ -24,7 +24,7 @@ function dropbox_admin_nav($navArray)
 
 function dropbox_define_acl($acl)
 {
-    $acl->loadResourceList(array('Dropbox_Index' => array('index','add','upload')));
+    $acl->loadResourceList(array('Dropbox_Index' => array('index','add')));
 }
 
 function dropbox_list()
@@ -34,10 +34,10 @@ function dropbox_list()
 
 function dropbox_save_files($item, $post) 
 {
-	if (!empty($_POST['file'])) {
-	    
+    $fileNames = $_POST['dropbox-files'];
+	if ($fileNames) {
 	    $filePaths = array();
-		foreach( $_POST['file'] as $fileName ) { 
+		foreach($fileNames as $fileName) { 
 			$filePath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$fileName; 
 			dropbox_check_permissions($filePath);
 			$filePaths[] = $filePath;                  
@@ -67,7 +67,31 @@ function dropbox_check_permissions($filePath)
 {
 	$filesDir = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files';
 	if (!(is_readable($filePath) && is_writable($filesDir))) {
-		echo ('<h1>Whoops!</h1><p>Check that the dropbox files folder is readable, and individual files are writable.  More information is on the Omeka Codex <a href="http://omeka.org/codex/dropbox_plugin">http://omeka.org/codex/dropbox_plugin</a>');
+		echo '<h1>Whoops!</h1><p>Check that the dropbox files folder is readable, and individual files are writable.  More information is on the Omeka Codex <a href="http://omeka.org/codex/dropbox_plugin">http://omeka.org/codex/dropbox_plugin</a>';
 		die;		
 	}
+}
+
+function dropbox_dir_list($directory) 
+{
+    // create an array to hold directory list
+    $fileNames = array();
+
+    // create a handler for the directory
+    $handler = opendir($directory);
+
+    // keep going until all files in directory have been read
+    while ($fileName = readdir($handler)) {
+
+        // if $file isn't this directory or its parent, 
+        // add it to the results array
+		$isdir = is_dir($fileName);
+        if (($fileName != '.') && ($fileName != '..') && ($fileName != '.svn') && ($isdir != '1'))
+            $fileNames[] = $fileName;
+    }
+
+    // tidy up: close the handler
+    closedir($handler);
+
+    return $fileNames;
 }

@@ -1,5 +1,23 @@
 <?php head(array('title' => 'Dropbox', 'bodyclass' => 'dropbox')); ?>
 
+<?php 
+    // The following includes the Autocompleter class.
+    echo js('scriptaculous', 'javascripts', array('controls'));  
+?>
+
+<script type="text/javascript" charset="utf-8">
+
+    // Tags autocomplete
+    Event.observe(window, 'load', function(){
+        new Ajax.Autocompleter("dropbox-tags", "dropbox-tags-autocomplete", 
+        <?php echo js_escape(uri(array('controller'=>'tags', 'action'=>'autocomplete'), 'default', array(), true)); ?>, {
+            tokens: ',',
+            paramName: 'tag_start'
+        });
+    });
+
+</script>
+
 <h1>Dropbox Plugin</h1>
 
 <div id="primary">
@@ -11,13 +29,11 @@
 
         <?php include 'dropboxlist.php'; ?>
 
-
-
 	    <fieldset>
     			<legend>Set Properties for Batch Upload</legend>
     			<p>Any properties set will be applied to each file uploaded - to customize properties, edit individual items after creating them.</p>
     			<div class="field">
-    				<div class="label">Item is public:</div> 
+    				<div class="label">Item is Public:</div> 
     				<div class="radio">
     				    <label class="radiolabel">
     				        <input type="radio" name="dropbox-public" id="dropbox-public-no" value="0" />No
@@ -28,7 +44,7 @@
     				</div>
     			</div>
     			<div class="field">
-    				<div class="label">Item is featured:</div> 
+    				<div class="label">Item is Featured:</div> 
     				<div class="radio">
     				    <label class="radiolabel">
     				        <input type="radio" name="dropbox-featured" id="dropbox-featured-no" value="0" checked="checked" />No
@@ -40,32 +56,30 @@
     			</div>
     	</fieldset>
 
-
-
-
-
 	    <fieldset id="collection-metadata">
     		<legend>Collection Metadata</legend>
             <div class="field">
-            <?php echo label('collection-id', 'Collection');?>
+            <?php echo label('dropbox-collection-id', 'Collection');?>
             <div class="inputs">
-            	<?php echo select_collection(array('name'=>'collection_id', 'id'=>'collection-id'),$item->collection_id); ?>
+            	<?php echo select_collection(array('name'=>'dropbox-collection-id', 'id'=>'dropbox-collection-id'),$item->collection_id); ?>
             </div>
             </div>
     	</fieldset>
 
     	<fieldset>
     		<legend>Tagging</legend>
-
     		<p>Separate tags with commas (lorem,ipsum,dolor sit,amet).</p>
-    		<div class="field">
-    			<label for="tags-field">Your Tags</label>
-    			<input type="text" name="tags" id="tags-field" class="textinput" />
+    		<div class="input">
+    			<label for="dropbox-tags">Your Tags</label>
+    			<input type="text" name="dropbox-tags" id="dropbox-tags" class="textinput" />
+    			<div id="dropbox-tags-autocomplete" class="autocomplete"></div>
     		</div>
     	</fieldset>
     	
 	    <fieldset>
-    		<input type="submit" name="submit" id="add_items" value="Upload Files / Items" />
+	        <div class="input">
+        		<input type="submit" name="submit" id="dropbox-upload-files" value="Upload Files as Items" />
+            </div>
     	</fieldset>
 	    
 	    

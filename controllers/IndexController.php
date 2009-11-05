@@ -6,10 +6,10 @@ class Dropbox_IndexController extends Omeka_Controller_Action
 
 	public function addAction()
 	{
-		$files = $_POST['file'];
-        if ($files) {
+		$fileNames = $_POST['dropbox-files'];
+        if ($fileNames) {
             try {
-    	 	    $this->uploadAction($files);                
+    	 	    $this->_uploadFiles($fileNames);                
             } catch (Omeka_File_Ingest_InvalidException $e) {
                 $this->flashError($e->getMessage());
 			    $this->redirect->goto('index');
@@ -20,10 +20,10 @@ class Dropbox_IndexController extends Omeka_Controller_Action
 	        $this->flashError('You must select a file to upload.');
             $this->redirect->goto('index');
 	    }
-	    $this->view->assign(compact('files'));
+	    $this->view->assign(compact('fileNames'));
 	}
 
-	protected function uploadAction($fileNames)
+	protected function _uploadFiles($fileNames)
 	{	
 		$filePaths = array();
 		foreach($fileNames as $fileName) {
@@ -41,8 +41,8 @@ class Dropbox_IndexController extends Omeka_Controller_Action
 			try{
                 $itemMetadata = array(  'public'            => $_POST['dropbox-public'],
                                         'featured'          => $_POST['dropbox-featured'],
-                                        'collection_id'     => $_POST['collection_id'],
-                                        'tags'              => $_POST['tags']
+                                        'collection_id'     => $_POST['dropbox-collection-id'],
+                                        'tags'              => $_POST['dropbox-tags']
                                      );
                 $elementTexts = array('Dublin Core' => array('Title' => array(array('text' => $fileName, 'html' => false))));
                 $fileMetadata = array('file_transfer_type' => 'Filesystem', 'files' => array($filePath));
