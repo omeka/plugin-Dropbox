@@ -8,31 +8,38 @@
 <?php if ($fileNames == NULL): ?>
     <p>No files have been uploaded to the dropbox.</p>
 <?php else: ?>
+    <?php echo js('jQuery'); ?>
     <script type="text/javascript" charset="utf-8">
+        jQuery.noConflict();
         
         function dropboxSelectAllCheckboxes(checked) {
-    		$$('#dropbox-file-checkboxes input').each(function(i) {
-    			if (i.parentNode.visible()) {
-    			    i.checked = checked;
-    			}
+    	    jQuery('#dropbox-file-checkboxes li:visible input').each(function() {
+    			var v = jQuery(this);
+    			v.attr('checked', checked);
     		});
     	}
     	
     	function dropboxFilterFiles() {
-    	    var filter = $('dropbox-file-filter').value.toLowerCase();
-    	    $$('#dropbox-file-checkboxes input').each(function(i) {
+    	    var filter = jQuery.trim(jQuery('#dropbox-file-filter').val().toLowerCase());
+    	    var someHidden = false;
+    	    jQuery('#dropbox-file-checkboxes input').each(function() {
+    			var v = jQuery(this);
     			if (filter != '') {
-                    $('dropbox-show-all-span').show();
-                    if (i.value.toLowerCase().match(filter)) {
-                        i.parentNode.show();
+                    if (v.val().toLowerCase().match(filter)) {
+                        v.parent().show();
                     } else {
-                        i.parentNode.hide();
+                        v.parent().hide();
+                        someHidden = true;
                     }
     			} else {
-    			    i.parentNode.show();
-    			    $('dropbox-show-all-span').hide();
+    			    v.parent().show();
     			}
     		});
+    		if (someHidden) {
+    		    jQuery('#dropbox-show-all-span').show();
+    		} else {
+    		    jQuery('#dropbox-show-all-span').hide();
+    		}
     	}
 
 		function dropboxNoEnter(e) {
@@ -44,7 +51,7 @@
     	Event.observe(window,'load',function() {
 
     		// Select all the checkboxes
-    		Event.observe($('dropbox-select-all'),'click',function(e) {
+    		Event.observe('dropbox-select-all','click',function(e) {
     		    e.stop();
     			dropboxSelectAllCheckboxes(true);
     			return;
@@ -60,7 +67,7 @@
     		// Show all the checkboxes
     		Event.observe('dropbox-show-all','click',function(e) {
     		    e.stop();
-    			$('dropbox-file-filter').value = '';
+    			jQuery('#dropbox-file-filter').val('');
     			dropboxFilterFiles();
     			return;
     		});
@@ -72,7 +79,8 @@
     		});
         		
             document.getElementById('dropbox-file-filter').onkeypress = dropboxNoEnter;
-    	    $('dropbox-show-all-span').hide();		
+    	    
+    	    jQuery('#dropbox-show-all-span').hide();		
     	});
     </script>
     <p>To filter the files, enter part of the filename below:</p>

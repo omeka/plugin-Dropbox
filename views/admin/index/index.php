@@ -76,12 +76,9 @@
     		</div>
     	</fieldset>
     	
-	    <fieldset>
-	        <div class="input">
-        		<input type="submit" name="submit" id="dropbox-upload-files" value="Upload Files as Items" />
-            </div>
-    	</fieldset>
-	    
+        <div class="input">
+    		<input type="submit" class="submit" name="submit" id="dropbox-upload-files" value="Upload Files as Items" />
+        </div>
 	    
 	</form>
 
