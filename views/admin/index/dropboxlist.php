@@ -8,7 +8,7 @@
 <?php if ($fileNames == NULL): ?>
     <p>No files have been uploaded to the dropbox.</p>
 <?php else: ?>
-    <?php echo js('jQuery'); ?>
+    <?php echo js('jquery'); ?>
     <script type="text/javascript" charset="utf-8">
         jQuery.noConflict();
         
