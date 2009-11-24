@@ -34,12 +34,18 @@ function dropbox_list()
 
 function dropbox_save_files($item, $post) 
 {
+    if (!dropbox_can_access_files_dir()) {
+        throw new Dropbox_Exception('Please make the following dropbox directory writeable: ' . $filesDir);
+    }
+    
     $fileNames = $_POST['dropbox-files'];
 	if ($fileNames) {
 	    $filePaths = array();
 		foreach($fileNames as $fileName) { 
-			$filePath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$fileName; 
-			dropbox_check_permissions($filePath);
+			$filePath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$fileName; 			
+			if (!dropbox_can_access_file($filePath)) {
+		        throw new Dropbox_Exception('Please make the following dropbox file readable and writeable: ' . $filePath);		
+		    }
 			$filePaths[] = $filePath;                  
 		}
 		
@@ -63,13 +69,15 @@ function dropbox_save_files($item, $post)
 	}
 }
 
-function dropbox_check_permissions($filePath)
+function dropbox_can_access_files_dir()
 {
-	$filesDir = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files';
-	if (!(is_readable($filePath) && is_writable($filesDir))) {
-		echo '<h1>Whoops!</h1><p>Check that the dropbox files folder is readable, and individual files are writable.  More information is on the Omeka Codex <a href="http://omeka.org/codex/dropbox_plugin">http://omeka.org/codex/dropbox_plugin</a>';
-		die;		
-	}
+    $filesDir = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files';
+    return dropbox_can_access_file($filesDir);
+}
+
+function dropbox_can_access_file($filePath)
+{
+	return (is_readable($filePath) && is_writeable($filePath));
 }
 
 function dropbox_dir_list($directory) 
@@ -80,18 +88,20 @@ function dropbox_dir_list($directory)
     // create a handler for the directory
     $handler = opendir($directory);
 
-    // keep going until all files in directory have been read
-    while ($fileName = readdir($handler)) {
+    if ($handler) {
+        // keep going until all files in directory have been read
+        while ($fileName = readdir($handler)) {
 
-        // if $file isn't this directory or its parent, 
-        // add it to the results array
-		$isdir = is_dir($fileName);
-        if (($fileName != '.') && ($fileName != '..') && ($fileName != '.svn') && ($isdir != '1'))
-            $fileNames[] = $fileName;
+            // if $file isn't this directory or its parent, 
+            // add it to the results array
+    		$isdir = is_dir($fileName);
+            if (($fileName != '.') && ($fileName != '..') && ($fileName != '.svn') && ($isdir != '1'))
+                $fileNames[] = $fileName;
+        }
+
+        // tidy up: close the handler
+        closedir($handler);
     }
-
-    // tidy up: close the handler
-    closedir($handler);
 
     return $fileNames;
 }
