@@ -8,10 +8,7 @@
 <?php if ($fileNames == NULL): ?>
     <p>No files have been uploaded to the dropbox.</p>
 <?php else: ?>
-    <?php echo js('jquery'); ?>
-    <script type="text/javascript" charset="utf-8">
-        jQuery.noConflict();
-        
+    <script type="text/javascript">
         function dropboxSelectAllCheckboxes(checked) {
     	    jQuery('#dropbox-file-checkboxes li:visible input').each(function() {
     			var v = jQuery(this);
@@ -48,39 +45,29 @@
             if ((e.keyCode == 13) && (node.type=="text")) {return false;}
         }
 
-    	Event.observe(window,'load',function() {
+        jQuery(document).ready(function () {
+            jQuery('#dropbox-select-all').click(function () {
+                dropboxSelectAllCheckboxes(true);
+                return false;
+            });
 
-    		// Select all the checkboxes
-    		Event.observe('dropbox-select-all','click',function(e) {
-    		    e.stop();
-    			dropboxSelectAllCheckboxes(true);
-    			return;
-    		});
+            jQuery('#dropbox-unselect-all').click(function () {
+                dropboxSelectAllCheckboxes(false);
+                return false;
+            });
 
-            // Unselect the checkboxes
-    		Event.observe('dropbox-unselect-all','click',function(e) {
-    		    e.stop();
-    			dropboxSelectAllCheckboxes(false);
-    			return;
-    		});
-    		
-    		// Show all the checkboxes
-    		Event.observe('dropbox-show-all','click',function(e) {
-    		    e.stop();
-    			jQuery('#dropbox-file-filter').val('');
-    			dropboxFilterFiles();
-    			return;
-    		});
-    		
-    		Event.observe('dropbox-file-filter','keyup', function(e) {
-    		    e.stop();
-    		    dropboxFilterFiles();
-    		    return;
-    		});
-        		
-            document.getElementById('dropbox-file-filter').onkeypress = dropboxNoEnter;
-    	    
-    	    jQuery('#dropbox-show-all-span').hide();		
+            jQuery('#dropbox-show-all').click(function () {
+                jQuery('#dropbox-file-filter').val('');
+                dropboxFilterFiles();
+                return false;
+            });
+
+            jQuery('#dropbox-file-filter').keyup(function () {
+                dropboxFilterFiles();
+                return false;
+            }).keypress(dropboxNoEnter);
+
+            jQuery('#dropbox-show-all-span').hide();
     	});
     </script>
     <p>To filter the files, enter part of the filename below:</p>
