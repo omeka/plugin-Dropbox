@@ -6,6 +6,8 @@
  * @package Dropbox
  */
 
+define('DROPBOX_DIR', dirname(__FILE__));
+
 // Define hooks
 add_plugin_hook('after_save_form_item', 'dropbox_save_files');
 add_plugin_hook('admin_append_to_items_form_files', 'dropbox_list');
@@ -69,9 +71,14 @@ function dropbox_save_files($item, $post)
 	}
 }
 
+function dropbox_get_files_dir_path()
+{
+    return DROPBOX_DIR . '/files';
+}
+
 function dropbox_can_access_files_dir()
 {
-    $filesDir = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files';
+    $filesDir = dropbox_get_files_dir_path();
     return dropbox_can_access_file($filesDir);
 }
 
