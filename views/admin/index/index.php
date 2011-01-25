@@ -2,7 +2,7 @@
 
 <?php echo js('items'); ?>
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
 //<![CDATA[
 jQuery(document).ready(function () {
     Omeka.Items.tagChoices('#dropbox-tags', <?php echo js_escape(uri(array('controller' => 'tags', 'action' => 'autocomplete'), 'default', array(), true)); ?>);
@@ -10,7 +10,7 @@ jQuery(document).ready(function () {
 //]]>     
 </script>
 
-<h1>Dropbox Plugin</h1>
+<h1>Dropbox</h1>
 
 <div id="primary">
 	<?php echo flash(); ?>
@@ -53,7 +53,7 @@ jQuery(document).ready(function () {
             <div class="field">
             <?php echo label('dropbox-collection-id', 'Collection');?>
             <div class="inputs">
-            	<?php echo select_collection(array('name'=>'dropbox-collection-id', 'id'=>'dropbox-collection-id'),$item->collection_id); ?>
+                <?php echo select_collection(array('name'=>'dropbox-collection-id', 'id'=>'dropbox-collection-id')); ?>
             </div>
             </div>
     	</fieldset>
@@ -70,11 +70,7 @@ jQuery(document).ready(function () {
         <div class="input">
     		<input type="submit" class="submit" name="submit" id="dropbox-upload-files" value="Upload Files as Items" />
         </div>
-	    
 	</form>
-
-	<p>Further information about using and installing the Dropbox plugin can be found on the <a href="http://omeka.org/codex/dropbox_plugin">Omeka Codex</a></p>
-
 </div>
 
-<?php foot(); ?>
+<?php foot();

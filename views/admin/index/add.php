@@ -1,6 +1,6 @@
 <?php head(array('title' => 'Dropbox', 'bodyclass' => 'dropbox')); ?>
 
-<h1>Dropbox Plugin</h1>
+<h1>Dropbox</h1>
 
 <div id="primary">
     <?php if ($notUploadedFileNamesToErrorMessages): ?>
@@ -24,4 +24,4 @@
         </div>
     <?php endif; ?>
 </div>
-<?php foot(); ?>
+<?php foot();
