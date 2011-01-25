@@ -1,21 +1,13 @@
 <?php head(array('title' => 'Dropbox', 'bodyclass' => 'dropbox')); ?>
 
-<?php 
-    // The following includes the Autocompleter class.
-    echo js('scriptaculous', 'javascripts', array('controls'));  
-?>
+<?php echo js('items'); ?>
 
 <script type="text/javascript" charset="utf-8">
-
-    // Tags autocomplete
-    Event.observe(window, 'load', function(){
-        new Ajax.Autocompleter("dropbox-tags", "dropbox-tags-autocomplete", 
-        <?php echo js_escape(uri(array('controller'=>'tags', 'action'=>'autocomplete'), 'default', array(), true)); ?>, {
-            tokens: ',',
-            paramName: 'tag_start'
-        });
-    });
-
+//<![CDATA[
+jQuery(document).ready(function () {
+    Omeka.Items.tagChoices('#dropbox-tags', <?php echo js_escape(uri(array('controller' => 'tags', 'action' => 'autocomplete'), 'default', array(), true)); ?>);
+});
+//]]>     
 </script>
 
 <h1>Dropbox Plugin</h1>
@@ -72,7 +64,6 @@
     		<div class="input">
     			<label for="dropbox-tags">Your Tags</label>
     			<input type="text" name="dropbox-tags" id="dropbox-tags" class="textinput" />
-    			<div id="dropbox-tags-autocomplete" class="autocomplete"></div>
     		</div>
     	</fieldset>
     	
