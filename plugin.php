@@ -89,25 +89,20 @@ function dropbox_can_access_file($filePath)
 function dropbox_dir_list($directory) 
 {
     // create an array to hold directory list
-    $fileNames = array();
+    $filenames = array();
 
-    // create a handler for the directory
-    $handler = opendir($directory);
+    $iter = new DirectoryIterator($directory);
 
-    if ($handler) {
-        // keep going until all files in directory have been read
-        while ($fileName = readdir($handler)) {
-
-            // if $file isn't this directory or its parent, 
-            // add it to the results array
-    		$isdir = is_dir($fileName);
-            if (($fileName != '.') && ($fileName != '..') && ($fileName != '.svn') && ($isdir != '1'))
-                $fileNames[] = $fileName;
+    foreach ($iter as $fileEntry) {
+        if ($fileEntry->isFile()) {
+            $filename = $fileEntry->getFilename();
+            if ($filename != '.svn') {
+                $filenames[] = $filename;
+            }
         }
-
-        // tidy up: close the handler
-        closedir($handler);
     }
 
-    return $fileNames;
+    natcasesort($filenames);
+
+    return $filenames;
 }

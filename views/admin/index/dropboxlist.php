@@ -1,7 +1,7 @@
 <h2>Select Files From Dropbox</h2>
 
 <?php
-    $filePath = PLUGIN_DIR . DIRECTORY_SEPARATOR . 'Dropbox' . DIRECTORY_SEPARATOR . 'files' . DIRECTORY_SEPARATOR;
+    $filePath = PLUGIN_DIR . DIRECTORY_SEPARATOR . 'Dropbox' . DIRECTORY_SEPARATOR . 'files';
     $fileNames = dropbox_dir_list($filePath);
 ?>
 
