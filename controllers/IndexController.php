@@ -30,7 +30,7 @@ class Dropbox_IndexController extends Omeka_Controller_Action
 	protected function _uploadFiles($fileNames)
 	{	
 	    if (!dropbox_can_access_files_dir()) {		    
-	        throw new Dropbox_Exception('Please make the following dropbox directory writeable: ' . dropbox_get_files_dir_path());
+	        throw new Dropbox_Exception('Please make the following dropbox directory writable: ' . dropbox_get_files_dir_path());
 	    }
 	    $notUploadedFileNamesToErrorMessages = array();	    		
 		foreach ($fileNames as $fileName) {
@@ -38,7 +38,7 @@ class Dropbox_IndexController extends Omeka_Controller_Action
 			$item = null;
 			try {			    
 			    if (!dropbox_can_access_file($filePath)) {
-			        throw new Dropbox_Exception('Please make the following dropbox file readable and writeable: ' . $filePath);		
+			        throw new Dropbox_Exception('Please make the following dropbox file readable and writable: ' . $filePath);
 			    }
                 $itemMetadata = array(  'public'            => $_POST['dropbox-public'],
                                         'featured'          => $_POST['dropbox-featured'],
