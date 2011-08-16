@@ -144,10 +144,7 @@ function dropbox_dir_list($directory)
 
     foreach ($iter as $fileEntry) {
         if ($fileEntry->isFile()) {
-            $filename = $fileEntry->getFilename();
-            if ($filename != '.svn') {
-                $filenames[] = $filename;
-            }
+            $filenames[] = $fileEntry->getFilename();
         }
     }
 
