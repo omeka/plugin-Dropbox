@@ -1,9 +1,27 @@
 <?php 
+/**
+ * @copyright Roy Rosenzweig Center for History and New Media, 2007-2011
+ * @license http://www.gnu.org/licenses/gpl-3.0.txt
+ * @package Dropbox
+ */
 
+/**
+ * Controller for Dropbox admin pages.
+ *
+ * @package Dropbox
+ */
 class Dropbox_IndexController extends Omeka_Controller_Action
-{	
+{
+    /**
+     * Front admin page.
+     */
 	public function indexAction() {}
 
+    /**
+     * Add action
+     *
+     * Batch creates items with Dropbox files.
+     */
 	public function addAction()
 	{
 		$fileNames = $_POST['dropbox-files'];
@@ -27,6 +45,13 @@ class Dropbox_IndexController extends Omeka_Controller_Action
 	    $this->view->assign(compact('uploadedFileNames', 'notUploadedFileNamesToErrorMessages'));
 	}
 
+    /**
+     * Create a new Item for each of the given files.
+     *
+     * @param array $filenames
+     * @return array An array of errors that occurred when creating the
+     *  Items, indexed by the filename that caused the error.
+     */
 	protected function _uploadFiles($fileNames)
 	{	
 	    if (!dropbox_can_access_files_dir()) {		    
