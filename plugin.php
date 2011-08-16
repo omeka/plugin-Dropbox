@@ -36,7 +36,7 @@ function dropbox_list()
 function dropbox_save_files($item, $post) 
 {
     if (!dropbox_can_access_files_dir()) {
-        throw new Dropbox_Exception('Please make the following dropbox directory writable: ' . $filesDir);
+        throw new Dropbox_Exception('Please make the following dropbox directory writable: ' . dropbox_get_files_dir_path());
     }
     
     $fileNames = $_POST['dropbox-files'];
@@ -78,12 +78,12 @@ function dropbox_get_files_dir_path()
 function dropbox_can_access_files_dir()
 {
     $filesDir = dropbox_get_files_dir_path();
-    return dropbox_can_access_file($filesDir);
+    return is_readable($filesDir) && is_writable($filesDir);
 }
 
 function dropbox_can_access_file($filePath)
 {
-	return (is_readable($filePath) && is_writable($filePath));
+    return is_readable($filePath);
 }
 
 function dropbox_dir_list($directory) 
