@@ -1,10 +1,11 @@
+<?php queue_js('items'); ?>
 <?php head(array('title' => 'Dropbox', 'bodyclass' => 'dropbox')); ?>
-
-<?php echo js('items'); ?>
+<?php $tagDelimiter = get_option('tag_delimiter'); ?>
 
 <script type="text/javascript">
 //<![CDATA[
 jQuery(document).ready(function () {
+    Omeka.Items.tagDelimiter = <?php echo js_escape($tagDelimiter); ?>;
     Omeka.Items.tagChoices('#dropbox-tags', <?php echo js_escape(uri(array('controller' => 'tags', 'action' => 'autocomplete'), 'default', array(), true)); ?>);
 });
 //]]>
@@ -19,7 +20,7 @@ jQuery(document).ready(function () {
 
     <form action="<?php echo html_escape(uri(array('action'=>'add'))); ?>" method="post" accept-charset="utf-8">
 
-        <?php include 'dropboxlist.php'; ?>
+        <?php dropbox_list(); ?>
 
         <fieldset>
                 <legend>Set Properties for Batch Upload</legend>
@@ -60,7 +61,7 @@ jQuery(document).ready(function () {
 
         <fieldset>
             <legend>Tagging</legend>
-            <p>Separate tags with commas (lorem,ipsum,dolor sit,amet).</p>
+            <p>Separate tags with <?php echo $tagDelimiter; ?></p>
             <div class="input">
                 <label for="dropbox-tags">Your Tags</label>
                 <input type="text" name="dropbox-tags" id="dropbox-tags" class="textinput" />
