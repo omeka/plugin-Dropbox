@@ -8,7 +8,7 @@
 define('DROPBOX_DIR', dirname(__FILE__));
 
 // Define hooks
-add_plugin_hook('after_save_form_item', 'dropbox_save_files');
+add_plugin_hook('before_save_form_item', 'dropbox_save_files');
 add_plugin_hook('admin_append_to_items_form_files', 'dropbox_list');
 add_plugin_hook('define_acl', 'dropbox_define_acl');
 
@@ -51,12 +51,16 @@ function dropbox_save_files($item, $post)
 		}
 		
 		$files = array();
-		try {
-			$files = insert_files_for_item($item, 'Filesystem', $filePaths);
-		} catch (Exception $e) {
-		    release_object($files);
-		    throw $e;
-		}
+        try {
+            $files = insert_files_for_item($item, 'Filesystem', $filePaths);
+        } catch (Omeka_File_Ingest_InvalidException $e) {
+            release_object($files);
+            $item->addError('Dropbox', $e->getMessage());
+            return;
+        } catch (Exception $e) {
+            release_object($files);
+            throw $e;
+        }
         release_object($files);
         
         // delete the files
