@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @copyright Roy Rosenzweig Center for History and New Media, 2007-2011
  * @license http://www.gnu.org/licenses/gpl-3.0.txt
@@ -41,8 +41,8 @@ function dropbox_define_acl($acl)
  */
 function dropbox_list()
 {
-	common('dropboxlist', array(), 'index');
-}  
+    common('dropboxlist', array(), 'index');
+}
 
 /**
  * Add files from the Dropbox to an item.
@@ -50,24 +50,24 @@ function dropbox_list()
  * @param Item $item
  * @param array $post
  */
-function dropbox_save_files($item, $post) 
+function dropbox_save_files($item, $post)
 {
     if (!dropbox_can_access_files_dir()) {
         throw new Dropbox_Exception('Please make the following dropbox directory writable: ' . dropbox_get_files_dir_path());
     }
-    
+
     $fileNames = $_POST['dropbox-files'];
-	if ($fileNames) {
-	    $filePaths = array();
-		foreach($fileNames as $fileName) { 
-			$filePath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$fileName; 			
-			if (!dropbox_can_access_file($filePath)) {
-		        throw new Dropbox_Exception('Please make the following dropbox file readable and writable: ' . $filePath);
-		    }
-			$filePaths[] = $filePath;                  
-		}
-		
-		$files = array();
+    if ($fileNames) {
+        $filePaths = array();
+        foreach($fileNames as $fileName) {
+            $filePath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$fileName;
+            if (!dropbox_can_access_file($filePath)) {
+                throw new Dropbox_Exception('Please make the following dropbox file readable and writable: ' . $filePath);
+            }
+            $filePaths[] = $filePath;
+        }
+
+        $files = array();
         try {
             $files = insert_files_for_item($item, 'Filesystem', $filePaths);
         } catch (Omeka_File_Ingest_InvalidException $e) {
@@ -79,7 +79,7 @@ function dropbox_save_files($item, $post)
             throw $e;
         }
         release_object($files);
-        
+
         // delete the files
         foreach($filePaths as $filePath) {
             try {
@@ -87,8 +87,8 @@ function dropbox_save_files($item, $post)
             } catch (Exception $e) {
                 throw $e;
             }
-        }	
-	}
+        }
+    }
 }
 
 /**
@@ -135,7 +135,7 @@ function dropbox_can_access_file($filePath)
  * @param string $directory Path to directory.
  * @return array Array of filenames in the directory.
  */
-function dropbox_dir_list($directory) 
+function dropbox_dir_list($directory)
 {
     // create an array to hold directory list
     $filenames = array();

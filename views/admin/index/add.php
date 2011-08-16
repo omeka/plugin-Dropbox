@@ -8,7 +8,7 @@
             <p>The following file(s) could NOT be uploaded:</p>
             <ul>
             <?php foreach ($notUploadedFileNamesToErrorMessages as $fileName=>$errorMessage): ?>
-        	    <li><?php echo html_escape($fileName); ?><br/><?php echo html_escape($errorMessage);?></li>
+                <li><?php echo html_escape($fileName); ?><br/><?php echo html_escape($errorMessage);?></li>
             <?php endforeach; ?>
             </ul>
         </div>
@@ -18,7 +18,7 @@
             <p>The following file(s) were successfully uploaded:</p>
             <ul>
             <?php foreach ($uploadedFileNames as $fileName): ?>
-        	    <li><?php echo html_escape($fileName); ?></li>
+                <li><?php echo html_escape($fileName); ?></li>
             <?php endforeach; ?>
             </ul>
         </div>
