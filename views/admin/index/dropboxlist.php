@@ -3,7 +3,7 @@
     $fileNames = dropbox_dir_list($filePath);
 ?>
 
-<?php if ($fileNames == NULL): ?>
+<?php if (!$fileNames): ?>
     <p>No files have been uploaded to the dropbox.</p>
 <?php else: ?>
     <script type="text/javascript">
