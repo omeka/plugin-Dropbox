@@ -16,55 +16,46 @@ jQuery(document).ready(function () {
 <div id="primary">
     <?php echo flash(); ?>
 
-    <p>To batch upload files, upload them to the /files/ folder of the Dropbox plugin.  After refreshing this page, they should appear listed below.</p>
+    <p>
+        To add files to the Dropbox, upload them to the Dropbox plugin's
+        /files/ folder.  Files in the Dropbox can be added to the
+        archive in bulk from this page, or added to individual items
+        from the normal item interface.
+    </p>
 
     <form action="<?php echo html_escape(uri(array('action'=>'add'))); ?>" method="post" accept-charset="utf-8">
 
+        <h2>Batch Add Files</h2>
+        <p>For each file selected, a new item will be created. The properties set below will be applied to each new item.</p>
+        <h3>Select Files from Dropbox</h3>
         <?php dropbox_list(); ?>
-
         <fieldset>
-                <legend>Set Properties for Batch Upload</legend>
-                <p>Any properties set will be applied to each file uploaded - to customize properties, edit individual items after creating them.</p>
-                <div class="field">
-                    <div class="label">Item is Public:</div>
-                    <div class="radio">
-                        <label class="radiolabel">
-                            <input type="radio" name="dropbox-public" id="dropbox-public-no" value="0" />No
-                        </label>
-                        <label class="radiolabel">
-                            <input type="radio" name="dropbox-public" id="dropbox-public-yes" value="1"  checked="checked"/>Yes
-                        </label>
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="label">Item is Featured:</div>
-                    <div class="radio">
-                        <label class="radiolabel">
-                            <input type="radio" name="dropbox-featured" id="dropbox-featured-no" value="0" checked="checked" />No
-                        </label>
-                        <label class="radiolabel">
-                            <input type="radio" name="dropbox-featured" id="dropbox-featured-yes" value="1" />Yes
-                        </label>
-                    </div>
-                </div>
-        </fieldset>
-
-        <fieldset id="collection-metadata">
-            <legend>Collection Metadata</legend>
+            <h3>Item Properties</h3>
+            
             <div class="field">
-            <?php echo label('dropbox-collection-id', 'Collection');?>
-            <div class="inputs">
-                <?php echo select_collection(array('name'=>'dropbox-collection-id', 'id'=>'dropbox-collection-id')); ?>
+                <label for="dropbox-public">Public</label>
+                <div class="inputs">
+                    <?php echo $this->formCheckbox('dropbox-public', null, array('checked' => true)); ?>
+                </div>
             </div>
+            <div class="field">
+                <label for="dropbox-featured">Featured</label>
+                <div class="inputs">
+                    <?php echo $this->formCheckbox('dropbox-featured'); ?>
+                </div>
             </div>
-        </fieldset>
-
-        <fieldset>
-            <legend>Tagging</legend>
-            <p>Separate tags with <?php echo $tagDelimiter; ?></p>
-            <div class="input">
-                <label for="dropbox-tags">Your Tags</label>
-                <input type="text" name="dropbox-tags" id="dropbox-tags" class="textinput" />
+            <div class="field">
+                <label for="dropbox-collection-id">Collection</label>
+                <div class="inputs">
+                    <?php echo select_collection(array('name'=>'dropbox-collection-id', 'id'=>'dropbox-collection-id')); ?>
+                </div>
+            </div>
+            <div class="field">
+                <label for="dropbox-tags">Tags</label>
+                <div class="inputs">
+                    <?php echo $this->formText('dropbox-tags', null, array('class' => 'textinput')); ?>
+                    <p class="explanation">Separate tags with <?php echo settings('tag_delimiter'); ?></p>
+                </div>
             </div>
         </fieldset>
 

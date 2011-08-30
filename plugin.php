@@ -9,7 +9,7 @@ define('DROPBOX_DIR', dirname(__FILE__));
 
 // Define hooks
 add_plugin_hook('before_save_form_item', 'dropbox_save_files');
-add_plugin_hook('admin_append_to_items_form_files', 'dropbox_list');
+add_plugin_hook('admin_append_to_items_form_files', 'dropbox_items_form_files');
 add_plugin_hook('define_acl', 'dropbox_define_acl');
 
 // Define filters
@@ -42,6 +42,16 @@ function dropbox_define_acl($acl)
 function dropbox_list()
 {
     common('dropboxlist', array(), 'index');
+}
+
+/**
+ * Display the dropbox files list on the item form.
+ * This simply adds a heading to the output.
+ */
+function dropbox_items_form_files()
+{
+    echo '<h3>Add Dropbox Files</h3>';
+    dropbox_list();
 }
 
 /**
