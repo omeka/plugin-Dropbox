@@ -22,18 +22,25 @@ add_filter('admin_navigation_main', 'dropbox_admin_nav');
  */
 function dropbox_admin_nav($navArray)
 {
-    if (has_permission('Dropbox_Index', 'index')) {
-        $navArray['Dropbox'] = uri(array('module'=>'dropbox', 'controller'=>'index', 'action'=>'index'), 'default');
-    }
+    //if (has_permission('Dropbox_Index', 'index')) {
+        /*$navArray['Dropbox'] = uri(array('module'=>'dropbox', 'controller'=>'index', 'action'=>'index'), 'default');*/
+        
+        $navArray[] = array(
+            'label' => __('Dropbox'),
+            'uri' => url(array('module'=>'dropbox','controller'=>'index','action'=>'index'),'default'),
+            'visible' => true
+        );
+    //}
     return $navArray;
 }
 
 /**
  * Define ACL entry for Dropbox controller.
  */
-function dropbox_define_acl($acl)
-{
-    $acl->loadResourceList(array('Dropbox_Index' => array('index','add')));
+function dropbox_define_acl($args)
+{   $acl = $args['acl'];
+    //$acl->loadResourceList(array('Dropbox_Index' => array('index','add')));
+    $acl->addResource('Dropbox_Index');
 }
 
 /**
@@ -60,8 +67,10 @@ function dropbox_items_form_files()
  * @param Item $item
  * @param array $post
  */
-function dropbox_save_files($item, $post)
+function dropbox_save_files($args)
 {
+    $item = $args['item'];
+    $post = $args['post'];
     if (!dropbox_can_access_files_dir()) {
         throw new Dropbox_Exception('Please make the following dropbox directory writable: ' . dropbox_get_files_dir_path());
     }

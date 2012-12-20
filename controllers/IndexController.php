@@ -10,7 +10,7 @@
  *
  * @package Dropbox
  */
-class Dropbox_IndexController extends Omeka_Controller_Action
+class Dropbox_IndexController extends Omeka_Controller_AbstractActionController
 {
     /**
      * Front admin page.

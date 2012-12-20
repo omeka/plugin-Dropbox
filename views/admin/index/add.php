@@ -1,4 +1,4 @@
-<?php head(array('title' => 'Dropbox', 'bodyclass' => 'dropbox')); ?>
+<?php echo head(array('title' => 'Dropbox', 'bodyclass' => 'dropbox')); ?>
 
 <h1>Dropbox</h1>
 
@@ -24,4 +24,4 @@
         </div>
     <?php endif; ?>
 </div>
-<?php foot();
+<?php echo foot();
