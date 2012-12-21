@@ -8,7 +8,7 @@
 define('DROPBOX_DIR', dirname(__FILE__));
 
 // Define hooks
-add_plugin_hook('before_save_form_item', 'dropbox_save_files');
+add_plugin_hook('after_save_item', 'dropbox_save_files');
 add_plugin_hook('admin_items_form_files','dropbox_items_form_files');
 add_plugin_hook('define_acl', 'dropbox_define_acl');
 
@@ -69,14 +69,14 @@ function dropbox_items_form_files()
  */
 function dropbox_save_files($args)
 {
-        print_r($args);
-    $item = $args['item'];
+     
+    $item = $args['record'];
     $post = $args['post'];
     if (!dropbox_can_access_files_dir()) {
         throw new Dropbox_Exception('Please make the following dropbox directory writable: ' . dropbox_get_files_dir_path());
     }
 
-    $fileNames = $_POST['dropbox-files'];
+    $fileNames = $post['dropbox-files'];
     if ($fileNames) {
         $filePaths = array();
         foreach($fileNames as $fileName) {
