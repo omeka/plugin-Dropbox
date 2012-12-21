@@ -50,14 +50,23 @@ jQuery(document).ready(function () {
             <div class="field">
                 <label for="dropbox-collection-id">Collection</label>
                 <div class="inputs">
-                    <?php echo select_collection(array('name'=>'dropbox-collection-id', 'id'=>'dropbox-collection-id')); ?>
+                    <?php  
+                          
+                         echo $this->formSelect(
+                                    'dropbox-collection-id',
+                                     (!isset($item))? null : $item->collection_id,
+                                    array('id'=>'collection_id'),
+                                    get_table_options('Collection')
+                                 );
+                    ?>
+                    
                 </div>
             </div>
             <div class="field">
                 <label for="dropbox-tags">Tags</label>
                 <div class="inputs">
                     <?php echo $this->formText('dropbox-tags', null, array('class' => 'textinput')); ?>
-                    <p class="explanation">Separate tags with <?php echo settings('tag_delimiter'); ?></p>
+                    <p class="explanation">Separate tags with <?php echo get_option('tag_delimiter'); ?></p>
                 </div>
             </div>
         </fieldset>

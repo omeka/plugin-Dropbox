@@ -35,12 +35,12 @@ class Dropbox_IndexController extends Omeka_Controller_AbstractActionController
                     $uploadedFileNames = array_diff($fileNames, array_keys($notUploadedFileNamesToErrorMessages));
                 }
             } catch(Exception $e) {
-                $this->flashError($e->getMessage());
-                $this->redirect->goto('index');
+                $this->_helper->flashMessenger($e->getMessage());
+                $this->_helper->redirector('index');
             }
         } else {
-            $this->flashError('You must select a file to upload.');
-            $this->redirect->goto('index');
+            $this->_helper->flashMessenger('You must select a file to upload.');
+            $this->_helper->redirector('index');
         }
         $this->view->assign(compact('uploadedFileNames', 'notUploadedFileNamesToErrorMessages'));
     }

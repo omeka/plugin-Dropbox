@@ -1,7 +1,9 @@
 <?php
     $filePath = PLUGIN_DIR . DIRECTORY_SEPARATOR . 'Dropbox' . DIRECTORY_SEPARATOR . 'files';
     $fileNames = dropbox_dir_list($filePath);
+    
 ?>
+
 
 <?php if (!$fileNames): ?>
     <p>No files have been uploaded to the dropbox.</p>

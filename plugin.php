@@ -9,7 +9,7 @@ define('DROPBOX_DIR', dirname(__FILE__));
 
 // Define hooks
 add_plugin_hook('before_save_form_item', 'dropbox_save_files');
-add_plugin_hook('admin_append_to_items_form_files', 'dropbox_items_form_files');
+add_plugin_hook('admin_items_form_files','dropbox_items_form_files');
 add_plugin_hook('define_acl', 'dropbox_define_acl');
 
 // Define filters
@@ -22,15 +22,13 @@ add_filter('admin_navigation_main', 'dropbox_admin_nav');
  */
 function dropbox_admin_nav($navArray)
 {
-    //if (has_permission('Dropbox_Index', 'index')) {
-        /*$navArray['Dropbox'] = uri(array('module'=>'dropbox', 'controller'=>'index', 'action'=>'index'), 'default');*/
-        
+    
         $navArray[] = array(
             'label' => __('Dropbox'),
             'uri' => url(array('module'=>'dropbox','controller'=>'index','action'=>'index'),'default'),
             'visible' => true
         );
-    //}
+   
     return $navArray;
 }
 
@@ -48,7 +46,8 @@ function dropbox_define_acl($args)
  */
 function dropbox_list()
 {
-    common('dropboxlist', array(), 'index');
+    
+   echo common('dropboxlist',array(),'index');
 }
 
 /**
@@ -59,6 +58,7 @@ function dropbox_items_form_files()
 {
     echo '<h3>Add Dropbox Files</h3>';
     dropbox_list();
+    
 }
 
 /**
@@ -69,6 +69,7 @@ function dropbox_items_form_files()
  */
 function dropbox_save_files($args)
 {
+        print_r($args);
     $item = $args['item'];
     $post = $args['post'];
     if (!dropbox_can_access_files_dir()) {
@@ -156,6 +157,7 @@ function dropbox_can_access_file($filePath)
  */
 function dropbox_dir_list($directory)
 {
+    
     // create an array to hold directory list
     $filenames = array();
 
