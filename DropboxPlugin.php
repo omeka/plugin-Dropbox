@@ -8,7 +8,7 @@
  */
 
 /**
- * Contribution plugin class
+ * Dropbox plugin class
  *
  * @copyright Center for History and New Media, 2010
  * @package Dropbox
