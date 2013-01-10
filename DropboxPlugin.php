@@ -11,7 +11,7 @@
  * Contribution plugin class
  *
  * @copyright Center for History and New Media, 2010
- * @package Contribution
+ * @package Dropbox
  */
 define('DROPBOX_DIR',dirname(__FILE__));
 
