@@ -71,7 +71,7 @@ class Dropbox_IndexController extends Omeka_Controller_AbstractActionController
                                         'tags'              => $_POST['dropbox-tags']
                                      );
                 $elementTexts = array('Dublin Core' => array('Title' => array(array('text' => $fileName, 'html' => false))));
-                $fileMetadata = array('file_transfer_type' => 'Filesystem', 'files' => array($filePath));
+                $fileMetadata = array('file_transfer_type' => 'Filesystem', 'file_ingest_options' => array('ignore_invalid_files'=> false),'files' => array($filePath));
                 $item = insert_item($itemMetadata, $elementTexts, $fileMetadata);
                 release_object($item);
                 // delete the file from the dropbox folder
