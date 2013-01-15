@@ -73,7 +73,7 @@ class DropboxPlugin extends Omeka_Plugin_AbstractPlugin
      * Display the dropbox files list on the  itemf form.
      * This simply adds a heading to the output
      */
-    protected function hookAdminItemsFormFiles()
+    public function hookAdminItemsFormFiles()
     {
         echo '<h3>Add Dropbox Files</h3>';
         dropbox_list();
