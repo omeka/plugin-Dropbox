@@ -82,44 +82,43 @@ class DropboxPlugin extends Omeka_Plugin_AbstractPlugin
     public function hookAfterSaveItem($args)
     {
         $item = $args['record'];
-    $post = $args['post'];
-    if (!dropbox_can_access_files_dir()) {
-        throw new Dropbox_Exception('Please make the following dropbox directory writable: ' . dropbox_get_files_dir_path());
-    }
-
-    $fileNames = $post['dropbox-files'];
-    if ($fileNames) {
-        $filePaths = array();
-        foreach($fileNames as $fileName) {
-            $filePath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$fileName;
-            if (!dropbox_can_access_file($filePath)) {
-                throw new Dropbox_Exception('Please make the following dropbox file readable and writable: ' . $filePath);
+        $post = $args['post'];
+        if (!dropbox_can_access_files_dir()) {
+            Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->addMessage(__('Please make the following dropbox directory writable: ' . dropbox_get_files_dir_path()), 'warning');
+        }
+    
+        $fileNames = $post['dropbox-files'];
+        if ($fileNames) {
+            $filePaths = array();
+            foreach($fileNames as $fileName) {
+                $filePath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$fileName;
+                if (!dropbox_can_access_file($filePath)) {
+                    throw new Dropbox_Exception('Please make the following dropbox file readable and writable: ' . $filePath);
+                }
+                $filePaths[] = $filePath;
             }
-            $filePaths[] = $filePath;
-        }
-
-        $files = array();
-        try {
-            $files = insert_files_for_item($item, 'Filesystem', $filePaths, array('file_ingest_options'=> array('ignore_invalid_files'=>false)));
-        } catch (Omeka_File_Ingest_InvalidException $e) {
-            release_object($files);
-            $item->addError('Dropbox', $e->getMessage());
-            return;
-        } catch (Exception $e) {
-            release_object($files);
-            throw $e;
-        }
-        release_object($files);
-
-        // delete the files
-        foreach($filePaths as $filePath) {
+    
+            $files = array();
             try {
-                unlink($filePath);
+                $files = insert_files_for_item($item, 'Filesystem', $filePaths, array('file_ingest_options'=> array('ignore_invalid_files'=>false)));
+            } catch (Omeka_File_Ingest_InvalidException $e) {
+                release_object($files);
+                $item->addError('Dropbox', $e->getMessage());
+                return;
             } catch (Exception $e) {
+                release_object($files);
                 throw $e;
             }
+            release_object($files);
+    
+            // delete the files
+            foreach($filePaths as $filePath) {
+                try {
+                    unlink($filePath);
+                } catch (Exception $e) {
+                    throw $e;
+                }
+            }
         }
     }
-    }
-    
 }
