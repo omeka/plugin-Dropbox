@@ -38,7 +38,7 @@ class DropboxPlugin extends Omeka_Plugin_AbstractPlugin
     {
         
         $nav[] = array(
-            'label'   => _('Dropbox'),
+            'label'   => __('Dropbox'),
             'uri'     => url(
                     array(
                         'module'=>'dropbox',
