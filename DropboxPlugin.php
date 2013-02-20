@@ -44,8 +44,8 @@ class DropboxPlugin extends Omeka_Plugin_AbstractPlugin
                         'module'=>'dropbox',
                         'controller'=>'index',
                         'action'=>'index',
-                        'default'
-                        )
+                     //   'default'
+                        ), 'default'
                     ),
             'visible' => true
         );
