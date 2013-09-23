@@ -65,13 +65,28 @@ class Dropbox_IndexController extends Omeka_Controller_AbstractActionController
                 if (!dropbox_can_access_file($filePath)) {
                     throw new Dropbox_Exception('Please make the following dropbox file readable and writable: ' . $filePath);
                 }
-                $itemMetadata = array(  'public'            => $_POST['dropbox-public'],
-                                        'featured'          => $_POST['dropbox-featured'],
-                                        'collection_id'     => $_POST['dropbox-collection-id'],
-                                        'tags'              => $_POST['dropbox-tags']
-                                     );
-                $elementTexts = array('Dublin Core' => array('Title' => array(array('text' => $fileName, 'html' => false))));
-                $fileMetadata = array('file_transfer_type' => 'Filesystem', 'file_ingest_options' => array('ignore_invalid_files'=> false),'files' => array($filePath));
+                $itemMetadata = array(
+                    'public' => $_POST['dropbox-public'],
+                    'featured' => $_POST['dropbox-featured'],
+                    'collection_id' => $_POST['dropbox-collection-id']
+                        ? $_POST['dropbox-collection-id']
+                        : null,
+                    'tags' => $_POST['dropbox-tags']
+                );
+                $elementTexts = array(
+                    'Dublin Core' => array(
+                        'Title' => array(
+                            array('text' => $fileName, 'html' => false)
+                        )
+                    )
+                );
+                $fileMetadata = array(
+                    'file_transfer_type' => 'Filesystem',
+                    'file_ingest_options' => array(
+                        'ignore_invalid_files' => false
+                    ),
+                    'files' => array($filePath)
+                );
                 $item = insert_item($itemMetadata, $elementTexts, $fileMetadata);
                 release_object($item);
                 // delete the file from the dropbox folder
