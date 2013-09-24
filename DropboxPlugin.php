@@ -46,7 +46,7 @@ class DropboxPlugin extends Omeka_Plugin_AbstractPlugin
                         'action'=>'index',
                         ), 'default'
                     ),
-            'visible' => true
+            'resource' => 'Dropbox_Index'
         );
         
         return $nav;
@@ -58,7 +58,7 @@ class DropboxPlugin extends Omeka_Plugin_AbstractPlugin
     public function hookDefineAcl($args)
     {
         $acl = $args['acl'];
-        $acl->addResource('Dropbox_index');
+        $acl->addResource('Dropbox_Index');
     }
     
     /*
