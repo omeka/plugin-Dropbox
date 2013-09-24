@@ -64,7 +64,7 @@
     
     <p class="dropbox-js" style="display:none; vertical-align:baseline; margin-bottom:0">
         Filter files by name:
-        <input id="dropbox-file-filter" name="dropbox-file-filter" class="textinput" style="font-size:1em">
+        <input type="text" id="dropbox-file-filter" name="dropbox-file-filter">
         <a href="#" id="dropbox-show-all" style="vertical-align:baseline">Show All</a>
     </p>
     <table>
