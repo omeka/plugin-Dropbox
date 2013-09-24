@@ -82,10 +82,11 @@ class DropboxPlugin extends Omeka_Plugin_AbstractPlugin
     {
         $item = $args['record'];
         $post = $args['post'];
-        if (!dropbox_can_access_files_dir()) {
-            Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->addMessage(__('Please make the following dropbox directory writable: ' . dropbox_get_files_dir_path()), 'warning');
-        }
     
+        if (!($post && isset($post['dropbox-files']))) {
+            return;
+        }
+        
         $fileNames = $post['dropbox-files'];
         if ($fileNames) {
             $filePaths = array();
