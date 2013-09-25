@@ -34,19 +34,6 @@ function dropbox_can_access_files_dir()
 }
 
 /**
- * Check if the necessary permissions are set for the given file.
- *
- * The file must be readable.
- *
- * @param string $filePath
- * @return boolean
- */
-function dropbox_can_access_file($filePath)
-{
-    return is_readable($filePath);
-}
-
-/**
  * Get a list of files in the given directory.
  *
  * The files are returned in natural-sorted, case-insensitive order.

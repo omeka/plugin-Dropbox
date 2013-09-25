@@ -92,8 +92,11 @@ class DropboxPlugin extends Omeka_Plugin_AbstractPlugin
             $filePaths = array();
             foreach($fileNames as $fileName) {
                 $filePath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$fileName;
-                if (!dropbox_can_access_file($filePath)) {
-                    throw new Dropbox_Exception('Please make the following dropbox file readable and writable: ' . $filePath);
+                if (!file_exists($filePath)) {
+                    throw new Dropbox_Exception('The file "' . $fileName . '" does not exist or is not readable.');
+                }
+                if (!is_readable($filePath)) {
+                    throw new Dropbox_Exception('The file "' . $fileName . '" is not readable.');
                 }
                 $filePaths[] = $filePath;
             }

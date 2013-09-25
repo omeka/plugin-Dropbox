@@ -26,13 +26,17 @@ class Dropbox_IndexController extends Omeka_Controller_AbstractActionController
     {
         $fileNames = $_POST['dropbox-files'];
         $uploadedFileNames = array();
-        $notUploadedFileNamesToErrorMessages = array();
         if ($fileNames) {
             try {
                 $uploadedFileNames = $fileNames;
-                $notUploadedFileNamesToErrorMessages = $this->_uploadFiles($fileNames);
-                if ($notUploadedFileNamesToErrorMessages) {
-                    $uploadedFileNames = array_diff($fileNames, array_keys($notUploadedFileNamesToErrorMessages));
+                $fileErrors = $this->_uploadFiles($fileNames);
+                if ($fileErrors) {
+                    $message = 'Some files were not uploaded. Specific errors for each file follow below:';
+                    foreach ($fileErrors as $fileName => $errorMessage) {
+                       $message .= "\n- $fileName: $errorMessage";
+                    }
+                    $this->_helper->flashMessenger($message, 'error');
+                    $uploadedFileNames = array_diff($fileNames, array_keys($fileErrors));
                 }
             } catch(Exception $e) {
                 $this->_helper->flashMessenger($e->getMessage());
@@ -42,7 +46,14 @@ class Dropbox_IndexController extends Omeka_Controller_AbstractActionController
             $this->_helper->flashMessenger('You must select a file to upload.');
             $this->_helper->redirector('index');
         }
-        $this->view->assign(compact('uploadedFileNames', 'notUploadedFileNamesToErrorMessages'));
+        if ($uploadedFileNames) {
+            $message = 'The following files were uploaded:';
+            foreach ($uploadedFileNames as $fileName) {
+                $message .= "\n- $fileName";
+            }
+            $this->_helper->flashMessenger($message, 'success');
+        }    
+        $this->_helper->redirector('index');
     }
 
     /**
@@ -62,8 +73,11 @@ class Dropbox_IndexController extends Omeka_Controller_AbstractActionController
             $filePath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$fileName;
             $item = null;
             try {
-                if (!dropbox_can_access_file($filePath)) {
-                    throw new Dropbox_Exception('Please make the following dropbox file readable and writable: ' . $filePath);
+                if (!file_exists($filePath)) {
+                    throw new Dropbox_Exception('The file "' . $fileName . '" does not exist or is not readable.');
+                }
+                if (!is_readable($filePath)) {
+                    throw new Dropbox_Exception('The file "' . $fileName . '" is not readable.');
                 }
                 $itemMetadata = array(
                     'public' => $_POST['dropbox-public'],
