@@ -40,7 +40,6 @@ function dropbox_can_access_files_dir()
  */
 function dropbox_dir_list($directory)
 {
-    
     // create an array to hold directory list
     $filenames = array();
 

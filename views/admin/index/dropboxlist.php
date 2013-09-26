@@ -1,10 +1,4 @@
-<?php
-    $filePath = PLUGIN_DIR . DIRECTORY_SEPARATOR . 'Dropbox' . DIRECTORY_SEPARATOR . 'files';
-    $fileNames = dropbox_dir_list($filePath);
-    
-?>
-
-
+<?php $fileNames = dropbox_dir_list(dropbox_get_files_dir_path()); ?>
 <?php if (!$fileNames): ?>
     <p>No files have been uploaded to the dropbox.</p>
 <?php else: ?>
@@ -62,10 +56,10 @@
         });
     </script>
     
-    <p class="dropbox-js" style="display:none; vertical-align:baseline; margin-bottom:0">
+    <p class="dropbox-js" style="display:none;">
         Filter files by name:
-        <input type="text" id="dropbox-file-filter" name="dropbox-file-filter">
-        <a href="#" id="dropbox-show-all" style="vertical-align:baseline">Show All</a>
+        <input type="text" id="dropbox-file-filter">
+        <a href="#" id="dropbox-show-all">Show All</a>
     </p>
     <table>
         <colgroup>

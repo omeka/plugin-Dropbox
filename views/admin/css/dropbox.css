@@ -1,0 +1,4 @@
+/* Keep margin consistent on and off Items pages */
+#dropbox-file-filter {
+    margin: 0;
+}

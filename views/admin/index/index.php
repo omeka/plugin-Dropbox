@@ -1,6 +1,7 @@
 <?php 
     queue_js_file('items');
     queue_js_file('tabs');
+    queue_css_file('dropbox');
     echo head(array('title' => 'Dropbox', 'bodyclass' => 'dropbox')); 
     $tagDelimiter = get_option('tag_delimiter');
   ?>
