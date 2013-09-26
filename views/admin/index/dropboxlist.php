@@ -1,5 +1,5 @@
 <?php if (!dropbox_can_access_files_dir()): ?>
-    <p>The dropbox files directory must be both readable and writable.</p>
+    <p class="dropbox-alert error">The dropbox files directory must be both readable and writable.</p>
 <?php else: ?>
     <?php $fileNames = dropbox_dir_list(dropbox_get_files_dir_path()); ?>
     <?php if (!$fileNames): ?>
@@ -62,7 +62,7 @@
         <p class="dropbox-js" style="display:none;">
             Filter files by name:
             <input type="text" id="dropbox-file-filter">
-            <a href="#" id="dropbox-show-all">Show All</a>
+            <a href="#" id="dropbox-show-all" class="blue button">Show All</a>
         </p>
         <table>
             <colgroup>
