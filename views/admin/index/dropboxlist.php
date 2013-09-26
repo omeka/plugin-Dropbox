@@ -1,6 +1,6 @@
 <?php $fileNames = dropbox_dir_list(dropbox_get_files_dir_path()); ?>
 <?php if (!$fileNames): ?>
-    <p>No files have been uploaded to the dropbox.</p>
+    <p><strong>No files have been uploaded to the dropbox.</strong></p>
 <?php else: ?>
     <script type="text/javascript">
         function dropboxSelectAllCheckboxes(checked) {
