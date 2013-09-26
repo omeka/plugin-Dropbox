@@ -1,14 +1,11 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- * 
+/**
+ * Print the list of files in the Dropbox.
  */
 function dropbox_list()
 {
-    
-   echo common('dropboxlist',array(),'index');
+    echo common('dropboxlist',array(),'index');
 }
 /**
  * Get the absolute path to the Dropbox "files" directory.
@@ -17,7 +14,7 @@ function dropbox_list()
  */
 function dropbox_get_files_dir_path()
 {
-    return DROPBOX_DIR . '/files';
+    return DROPBOX_DIR . DIRECTORY_SEPARATOR . 'files';
 }
 
 /**
@@ -60,5 +57,27 @@ function dropbox_dir_list($directory)
     return $filenames;
 }
 
-
-?>
+/**
+ * Check if the given file can be uploaded from the dropbox.
+ *
+ * @throws Dropbox_Exception
+ * @return string Validated path to the file
+ */
+function dropbox_validate_file($fileName)
+{
+    $dropboxDir = dropbox_get_files_dir_path();
+    $filePath = $dropboxDir .DIRECTORY_SEPARATOR . $fileName;
+    $realFilePath = realpath($filePath);
+    // Ensure the path is actually within the dropbox files dir.
+    if (!$realFilePath
+        || strpos($realFilePath, $dropboxDir . DIRECTORY_SEPARATOR) !== 0) {
+        throw new Dropbox_Exception('The given path is invalid.');
+    }
+    if (!file_exists($realFilePath)) {
+        throw new Dropbox_Exception('The file "' . $fileName . '" does not exist or is not readable.');
+    }
+    if (!is_readable($realFilePath)) {
+        throw new Dropbox_Exception('The file "' . $fileName . '" is not readable.');
+    }
+    return $realFilePath;
+}

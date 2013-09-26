@@ -68,17 +68,11 @@ class Dropbox_IndexController extends Omeka_Controller_AbstractActionController
         if (!dropbox_can_access_files_dir()) {
             throw new Dropbox_Exception('Please make the following dropbox directory writable: ' . dropbox_get_files_dir_path());
         }
-        $notUploadedFileNamesToErrorMessages = array();
+        $fileErrors = array();
         foreach ($fileNames as $fileName) {
-            $filePath = PLUGIN_DIR.DIRECTORY_SEPARATOR.'Dropbox'.DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$fileName;
             $item = null;
             try {
-                if (!file_exists($filePath)) {
-                    throw new Dropbox_Exception('The file "' . $fileName . '" does not exist or is not readable.');
-                }
-                if (!is_readable($filePath)) {
-                    throw new Dropbox_Exception('The file "' . $fileName . '" is not readable.');
-                }
+                $filePath = dropbox_validate_file($fileName);
                 $itemMetadata = array(
                     'public' => $_POST['dropbox-public'],
                     'featured' => $_POST['dropbox-featured'],
@@ -107,9 +101,9 @@ class Dropbox_IndexController extends Omeka_Controller_AbstractActionController
                 unlink($filePath);
             } catch(Exception $e) {
                 release_object($item);
-                $notUploadedFileNamesToErrorMessages[$fileName] = $e->getMessage();
+                $fileErrors[$fileName] = $e->getMessage();
             }
         }
-        return $notUploadedFileNamesToErrorMessages;
+        return $fileErrors;
     }
 }
