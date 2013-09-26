@@ -89,6 +89,9 @@ class DropboxPlugin extends Omeka_Plugin_AbstractPlugin
         
         $fileNames = $post['dropbox-files'];
         if ($fileNames) {
+            if (!dropbox_can_access_files_dir()) {
+                throw new Dropbox_Exception('The Dropbox files directory must be both readable and writable.');
+            }
             $filePaths = array();
             foreach($fileNames as $fileName) {
                 $filePaths[] = dropbox_validate_file($fileName);

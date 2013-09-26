@@ -66,7 +66,7 @@ class Dropbox_IndexController extends Omeka_Controller_AbstractActionController
     protected function _uploadFiles($fileNames)
     {
         if (!dropbox_can_access_files_dir()) {
-            throw new Dropbox_Exception('Please make the following dropbox directory writable: ' . dropbox_get_files_dir_path());
+            throw new Dropbox_Exception('The Dropbox files directory must be both readable and writable.');
         }
         $fileErrors = array();
         foreach ($fileNames as $fileName) {

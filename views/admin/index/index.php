@@ -63,5 +63,16 @@ jQuery(document).ready(function () {
         </div>
     </section>
 </form>
+<script type="text/javascript">
+jQuery('document').ready(function () {
+    function toggleUploadButton() {
+        jQuery('#dropbox-upload-files').prop('disabled',
+            !jQuery('input[name="dropbox-files[]"]:checked').length);
+    }
 
+    toggleUploadButton();
+    jQuery('input[name="dropbox-files[]"]').change(toggleUploadButton);
+    jQuery('#dropbox-file-checkboxes').on('dropbox-all-toggled', toggleUploadButton);
+});
+</script>
 <?php echo foot();
