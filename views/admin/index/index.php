@@ -16,10 +16,9 @@ jQuery(document).ready(function () {
 </script>
 <?php echo flash(); ?>
 <p>
-    To add files to the Dropbox, upload them to the Dropbox plugin's
-    /files/ folder.  Files in the Dropbox can be added to the
-    archive in bulk from this page, or added to individual items
-    from the normal item interface.
+    To make files available in the Dropbox, upload them to the Dropbox plugin's
+    /files folder on the server. Dropbox files can be added in bulk to your site from this page, 
+    or added to individual items through an item's admin interface.
 </p>
 <form action="<?php echo html_escape(url(array('action'=>'add'))); ?>" method="post" accept-charset="utf-8">
     <section class="seven columns alpha">
