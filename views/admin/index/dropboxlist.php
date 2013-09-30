@@ -1,9 +1,9 @@
 <?php if (!dropbox_can_access_files_dir()): ?>
-    <p class="dropbox-alert error">The dropbox files directory must be both readable and writable.</p>
+    <p class="dropbox-alert error"><?php echo __('The Dropbox files directory must be both readable and writable.'); ?></p>
 <?php else: ?>
     <?php $fileNames = dropbox_dir_list(dropbox_get_files_dir_path()); ?>
     <?php if (!$fileNames): ?>
-        <p><strong>No files have been uploaded to the dropbox.</strong></p>
+        <p><strong><?php echo __('No files have been uploaded to the dropbox.'); ?></strong></p>
     <?php else: ?>
         <script type="text/javascript">
             function dropboxSelectAllCheckboxes(checked) {
@@ -19,7 +19,7 @@
                 jQuery('#dropbox-file-checkboxes input').each(function() {
                     var v = jQuery(this);
                     if (filter != '') {
-                        if (v.val().toLowerCase().match(filter)) {
+                        if (v.val().toLowerCase().indexOf(filter) != -1) {
                             v.parent().parent().show();
                         } else {
                             v.parent().parent().hide();
@@ -43,15 +43,14 @@
                     dropboxSelectAllCheckboxes(this.checked);
                 });
 
-                jQuery('#dropbox-show-all').click(function () {
+                jQuery('#dropbox-show-all').click(function (event) {
+                    event.preventDefault();
                     jQuery('#dropbox-file-filter').val('');
                     dropboxFilterFiles();
-                    return false;
                 });
 
                 jQuery('#dropbox-file-filter').keyup(function () {
                     dropboxFilterFiles();
-                    return false;
                 }).keypress(dropboxNoEnter);
 
                 jQuery('.dropbox-js').show();
@@ -60,9 +59,9 @@
         </script>
 
         <p class="dropbox-js" style="display:none;">
-            Filter files by name:
+            <?php echo __('Filter files by name:'); ?>
             <input type="text" id="dropbox-file-filter">
-            <a href="#" id="dropbox-show-all" class="blue button">Show All</a>
+            <button type="button" id="dropbox-show-all" class="blue"><?php echo __('Show All'); ?></button>
         </p>
         <table>
             <colgroup>
@@ -72,7 +71,7 @@
             <thead>
                 <tr>
                     <th><input type="checkbox" id="dropbox-select-all" class="dropbox-js" style="display:none"></th>
-                    <th>File Name</th>
+                    <th><?php echo __('File Name'); ?></th>
                 </tr>
             </thead>
             <tbody id="dropbox-file-checkboxes">

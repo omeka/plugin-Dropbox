@@ -21,6 +21,7 @@ class DropboxPlugin extends Omeka_Plugin_AbstractPlugin
 {
     // Define Hooks
     protected $_hooks = array(
+        'initialize',
         'after_save_item',
         'admin_items_form_files',
         'define_acl',
@@ -30,7 +31,11 @@ class DropboxPlugin extends Omeka_Plugin_AbstractPlugin
     protected $_filters = array(
         'admin_navigation_main',
     );
-    
+
+    public function hookInitialize()
+    {
+        add_translation_source(dirname(__FILE__) . '/languages');
+    }
     /**
      * Dropbox admin navigation filter
      */
@@ -60,21 +65,14 @@ class DropboxPlugin extends Omeka_Plugin_AbstractPlugin
         $acl = $args['acl'];
         $acl->addResource('Dropbox_Index');
     }
-    
-    /*
-     *  Display the list of files
-     */
-    protected function dropbox_list()
-    {
-        echo common('dropboxlist',array(),'index');
-    }
+
     /**
      * Display the dropbox files list on the  itemf form.
      * This simply adds a heading to the output
      */
     public function hookAdminItemsFormFiles()
     {
-        echo '<h3>Add Dropbox Files</h3>';
+        echo '<h3>' . __('Add Dropbox Files') . '</h3>';
         dropbox_list();
     }
     
@@ -90,7 +88,7 @@ class DropboxPlugin extends Omeka_Plugin_AbstractPlugin
         $fileNames = $post['dropbox-files'];
         if ($fileNames) {
             if (!dropbox_can_access_files_dir()) {
-                throw new Dropbox_Exception('The Dropbox files directory must be both readable and writable.');
+                throw new Dropbox_Exception(__('The Dropbox files directory must be both readable and writable.'));
             }
             $filePaths = array();
             foreach($fileNames as $fileName) {

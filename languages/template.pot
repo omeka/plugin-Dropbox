@@ -1,0 +1,82 @@
+# Translation for the Dropbox plugin for Omeka.
+# Copyright (C) 2013 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Dropbox\n"
+"Report-Msgid-Bugs-To: http://github.com/omeka/plugin-Dropbox/issues\n"
+"POT-Creation-Date: 2013-01-23 21:49-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: DropboxPlugin.php:46
+msgid "Dropbox"
+msgstr ""
+
+#: DropboxPlugin.php:75
+msgid "Add Dropbox Files"
+msgstr ""
+
+#: DropboxPlugin.php:91 views/admin/index/dropboxlist.php:2
+msgid "The Dropbox files directory must be both readable and writable."
+msgstr ""
+
+#: helpers/DropboxFunctions.php:73
+msgid "The given path is invalid."
+msgstr ""
+
+#: helpers/DropboxFunctions.php:76
+#, php-format
+msgid "The file \"%s\" does not exist or is not readable."
+msgstr ""
+
+#: helpers/DropboxFunctions.php:79
+#, php-format
+msgid "The file \"%s\" is not readable."
+msgstr ""
+
+#: views/admin/index/dropboxlist.php:6
+msgid "No files have been uploaded to the dropbox."
+msgstr ""
+
+#: views/admin/index/dropboxlist.php:62
+msgid "Filter files by name:"
+msgstr ""
+
+#: views/admin/index/dropboxlist.php:64
+msgid "Show All"
+msgstr ""
+
+#: views/admin/index/dropboxlist.php:74
+msgid "File Name"
+msgstr ""
+
+#: views/admin/index/index.php:20
+msgid ""
+"To make files available in the Dropbox, upload them to the Dropbox plugin's "
+"files/ folder on the server.  Dropbox files can be added in bulk to your "
+"site from this page, or added to individual items through an item's admin "
+"interface."
+msgstr ""
+
+#: views/admin/index/index.php:27
+msgid "Batch Add Items"
+msgstr ""
+
+#: views/admin/index/index.php:30
+msgid ""
+"For each file selected, a new item will be created. The properties set to "
+"the right will be applied to each new item."
+msgstr ""
+
+#: views/admin/index/index.php:38
+msgid "Upload Files as Items"
+msgstr ""

@@ -5,7 +5,7 @@
  */
 function dropbox_list()
 {
-    echo common('dropboxlist',array(),'index');
+    echo common('dropboxlist', array(), 'index');
 }
 /**
  * Get the absolute path to the Dropbox "files" directory.
@@ -70,13 +70,13 @@ function dropbox_validate_file($fileName)
     // Ensure the path is actually within the dropbox files dir.
     if (!$realFilePath
         || strpos($realFilePath, $dropboxDir . DIRECTORY_SEPARATOR) !== 0) {
-        throw new Dropbox_Exception('The given path is invalid.');
+        throw new Dropbox_Exception(__('The given path is invalid.'));
     }
     if (!file_exists($realFilePath)) {
-        throw new Dropbox_Exception('The file "' . $fileName . '" does not exist or is not readable.');
+        throw new Dropbox_Exception(__('The file "%s" does not exist or is not readable.', $fileName));
     }
     if (!is_readable($realFilePath)) {
-        throw new Dropbox_Exception('The file "' . $fileName . '" is not readable.');
+        throw new Dropbox_Exception(__('The file "%s" is not readable.', $fileName));
     }
     return $realFilePath;
 }
