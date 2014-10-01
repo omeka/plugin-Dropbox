@@ -3,14 +3,14 @@
 /**
  * @version $Id$
  * @license http://www.gnu.org/licenses/gpl-3.0.txt
- * @copyright Center for History and New Media, 2010
+ * @copyright Center for History and New Media, 2014
  * @package Dropbox
  */
 
 /**
  * Dropbox plugin class
  *
- * @copyright Center for History and New Media, 2010
+ * @copyright Center for History and New Media, 2014
  * @package Dropbox
  */
 define('DROPBOX_DIR',dirname(__FILE__));
