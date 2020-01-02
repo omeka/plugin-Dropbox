@@ -59,6 +59,19 @@ echo __("To make files available in the Dropbox, upload them to the Dropbox plug
                     ?>
                 </div>
             </div>
+            <div id="item_type-form" class="field">
+                <label for="dropbox-item_type-id"><?php echo __('Item Type'); ?></label>
+                <div class="inputs">
+                    <?php  
+                        echo $this->formSelect(
+                            'dropbox-item_type-id',
+                            null,
+                            array('id' => 'item-type'),
+                            get_table_options('ItemType')
+                        );
+                    ?>
+                </div>
+            </div>
             <div id="tags-form" class="field">
                 <label for="dropbox-tags"><?php echo __('Tags'); ?></label>
                 <div class="inputs">
