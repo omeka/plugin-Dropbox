@@ -36,7 +36,7 @@ function dropbox_can_access_files_dir()
  * The files are returned in natural-sorted, case-insensitive order.
  *
  * @param string $directory Path to directory.
- * @return array Array of filenames in the directory.
+ * @return array Array of filenames and filesizes in the directory.
  */
 function dropbox_dir_list($directory)
 {
@@ -47,7 +47,10 @@ function dropbox_dir_list($directory)
 
     foreach ($iter as $fileEntry) {
         if ($fileEntry->isFile()) {
-            $filenames[] = $fileEntry->getFilename();
+            $filenames[] = array(
+								$fileEntry->getFilename(),
+								$fileEntry->getSize()
+								);
         }
     }
 
