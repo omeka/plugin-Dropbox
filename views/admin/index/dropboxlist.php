@@ -72,12 +72,17 @@
                 <tr>
                     <th><input type="checkbox" id="dropbox-select-all" class="dropbox-js" style="display:none"></th>
                     <th><?php echo __('File Name'); ?></th>
-                </tr>
+					<th style="text-align: center"><?php echo __('File Size'); ?></th>
+                 </tr>
             </thead>
             <tbody id="dropbox-file-checkboxes">
             <?php foreach ($fileNames as $fileName): ?>
-                <tr><td><input type="checkbox" name="dropbox-files[]" value="<?php echo html_escape($fileName); ?>"/></td><td><?php echo html_escape($fileName); ?></td></tr>
-            <?php endforeach; ?>
+                <tr>
+					<td><input type="checkbox" name="dropbox-files[]" value="<?php echo html_escape($fileName[0]); ?>"/></td>
+					<td><?php echo html_escape($fileName[0]); ?></td>
+					<td style="text-align: right"><?php echo number_format($fileName[1] / 1024, 3) . " kB"; ?></td>
+				</tr>
+             <?php endforeach; ?>
             </tbody>
         </table>
     <?php endif; ?>
