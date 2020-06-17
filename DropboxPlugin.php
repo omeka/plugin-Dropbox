@@ -80,6 +80,8 @@ class DropboxPlugin extends Omeka_Plugin_AbstractPlugin
     {
         $item = $args['record'];
         $post = $args['post'];
+        $db = get_db();
+        $maxOrder = $db->fetchOne("SELECT MAX(`order`) from `$db->File` WHERE item_id = ?", $item->id);
     
         if (!($post && isset($post['dropbox-files']))) {
             return;
@@ -91,8 +93,13 @@ class DropboxPlugin extends Omeka_Plugin_AbstractPlugin
                 throw new Dropbox_Exception(__('The Dropbox files directory must be both readable and writable.'));
             }
             $filePaths = array();
+            $order = $maxOrder;
             foreach($fileNames as $fileName) {
-                $filePaths[] = dropbox_validate_file($fileName);
+                $order++;
+                $filePaths[] = array(
+                    'source' => dropbox_validate_file($fileName),
+                    'order' => $order
+                );
             }
     
             $files = array();
