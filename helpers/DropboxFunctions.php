@@ -47,7 +47,11 @@ function dropbox_dir_list($directory)
 
     foreach ($iter as $fileEntry) {
         if ($fileEntry->isFile()) {
-            $filenames[] = $fileEntry->getFilename();
+            $filenames[] = array(
+				$fileEntry->getFilename(),
+				$fileEntry->getExtension(),
+				$fileEntry->getSize()
+			);
         }
     }
 
