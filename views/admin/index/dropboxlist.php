@@ -86,20 +86,22 @@
             </colgroup>
             <thead>
                 <tr>
-                    <th><input type="checkbox" id="dropbox-select-all" class="dropbox-js" style="display:none"></th>
-                    <th><?php echo '<a>' . __('File Name') . '</a>'; ?></th>
-					<th style="text-align: center"><?php echo '<a>' . __('File Type'). '</a>'; ?></th>
-					<th style="text-align: center"><?php echo '<a>' . __('File Size'). '</a>'; ?></th>
+                    	<th><input type="checkbox" id="dropbox-select-all" class="dropbox-js" style="display:none"></th>
+                    	<th><?php echo '<a>' . __('File Name') . '</a>'; ?></th>
+			<th style="text-align: center"><?php echo '<a>' . __('File Type'). '</a>'; ?></th>
+			<th style="text-align: center"><?php echo '<a>' . __('File Size'). '</a>'; ?></th>
                 </tr>
             </thead>
             <tbody id="dropbox-file-checkboxes">
             <?php foreach ($fileNames as $fileName): ?>
-					<td><input type="checkbox" name="dropbox-files[]" value="<?php echo html_escape($fileName[0]); ?>"/></td>
-					<td><?php echo html_escape($fileName[0]); ?></td>
-					<td style="text-align: center"><?php echo html_escape($fileName[1]); ?></td>
-					<td style="text-align: right">
-						<?php echo number_format($fileName[2] / 1024, 3) . " kB"; ?>
-					</td>
+            	<tr>
+			<td><input type="checkbox" name="dropbox-files[]" value="<?php echo html_escape($fileName[0]); ?>"/></td>
+			<td><?php echo html_escape($fileName[0]); ?></td>
+			<td style="text-align: center"><?php echo strtolower(html_escape($fileName[1])); ?></td>
+			<td style="text-align: right">
+				<?php echo Zend_Locale_Format::toNumber($fileName[2]) . " B"; ?>
+			</td>
+		</tr>
             <?php endforeach; ?>
             </tbody>
         </table>
