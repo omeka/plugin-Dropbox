@@ -55,7 +55,23 @@
 
                 jQuery('.dropbox-js').show();
                 jQuery('#dropbox-show-all').hide();
+
+				jQuery('th').click(function(){
+					var table = jQuery(this).parents('table').eq(0)
+					var rows = table.find('tr:gt(0)').toArray().sort(comparer(jQuery(this).index()))
+					this.asc = !this.asc
+					if (!this.asc){rows = rows.reverse()}
+					for (var i = 0; i < rows.length; i++){table.append(rows[i])}
+				})
             });
+
+			function comparer(index) {
+				return function(a, b) {
+					var valA = getCellValue(a, index), valB = getCellValue(b, index)
+					return jQuery.isNumeric(valA) && jQuery.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB)
+				}
+			}
+			function getCellValue(row, index){ return jQuery(row).children('td').eq(index).text() }
         </script>
 
         <p class="dropbox-js" style="display:none;">
@@ -70,13 +86,22 @@
             </colgroup>
             <thead>
                 <tr>
-                    <th><input type="checkbox" id="dropbox-select-all" class="dropbox-js" style="display:none"></th>
-                    <th><?php echo __('File Name'); ?></th>
+                    	<th><input type="checkbox" id="dropbox-select-all" class="dropbox-js" style="display:none"></th>
+                    	<th><?php echo '<a>' . __('File Name') . '</a>'; ?></th>
+			<th style="text-align: center"><?php echo '<a>' . __('File Type'). '</a>'; ?></th>
+			<th style="text-align: center"><?php echo '<a>' . __('File Size'). '</a>'; ?></th>
                 </tr>
             </thead>
             <tbody id="dropbox-file-checkboxes">
             <?php foreach ($fileNames as $fileName): ?>
-                <tr><td><input type="checkbox" name="dropbox-files[]" value="<?php echo html_escape($fileName); ?>"/></td><td><?php echo html_escape($fileName); ?></td></tr>
+            	<tr>
+			<td><input type="checkbox" name="dropbox-files[]" value="<?php echo html_escape($fileName[0]); ?>"/></td>
+			<td><?php echo html_escape($fileName[0]); ?></td>
+			<td style="text-align: center"><?php echo strtolower(html_escape($fileName[1])); ?></td>
+			<td style="text-align: right">
+				<?php echo Zend_Locale_Format::toNumber($fileName[2]) . " B"; ?>
+			</td>
+		</tr>
             <?php endforeach; ?>
             </tbody>
         </table>
