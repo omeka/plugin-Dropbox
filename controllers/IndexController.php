@@ -79,6 +79,9 @@ class Dropbox_IndexController extends Omeka_Controller_AbstractActionController
                     'collection_id' => $_POST['dropbox-collection-id']
                         ? $_POST['dropbox-collection-id']
                         : null,
+                    'item_type_id' => $_POST['dropbox-item_type-id']
+                        ? $_POST['dropbox-item_type-id']
+                        : null,
                     'tags' => $_POST['dropbox-tags']
                 );
                 $elementTexts = array(
