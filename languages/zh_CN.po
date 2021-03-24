@@ -1,0 +1,83 @@
+# Translation for the Dropbox plugin for Omeka.
+# Copyright (C) 2013 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# Hong Zhang <zhangh@unlv.nevada.edu>, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: http://github.com/omeka/plugin-Dropbox/issues\n"
+"POT-Creation-Date: 2013-01-23 21:49-0500\n"
+"PO-Revision-Date: 2018-03-03 05:15+0000\n"
+"Last-Translator: Hong Zhang <zhangh@unlv.nevada.edu>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/omeka/omeka/language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: DropboxPlugin.php:46
+msgid "Dropbox"
+msgstr "Dropbox"
+
+#: DropboxPlugin.php:75
+msgid "Add Dropbox Files"
+msgstr "添加Dropbox文件"
+
+#: DropboxPlugin.php:91 views/admin/index/dropboxlist.php:2
+msgid "The Dropbox files directory must be both readable and writable."
+msgstr "Dropbox文件目录必须同时可读可写。"
+
+#: helpers/DropboxFunctions.php:73
+msgid "The given path is invalid."
+msgstr "给定路径是无效的。"
+
+#: helpers/DropboxFunctions.php:76
+#, php-format
+msgid "The file \"%s\" does not exist or is not readable."
+msgstr "文件“%s”不存在或不可读。"
+
+#: helpers/DropboxFunctions.php:79
+#, php-format
+msgid "The file \"%s\" is not readable."
+msgstr "文件“%s”不可读。"
+
+#: views/admin/index/dropboxlist.php:6
+msgid "No files have been uploaded to the dropbox."
+msgstr "还没有文件上传至dropbox。"
+
+#: views/admin/index/dropboxlist.php:62
+msgid "Filter files by name:"
+msgstr "按文件名过滤："
+
+#: views/admin/index/dropboxlist.php:64
+msgid "Show All"
+msgstr "显示所有"
+
+#: views/admin/index/dropboxlist.php:74
+msgid "File Name"
+msgstr "文件名"
+
+#: views/admin/index/index.php:20
+msgid ""
+"To make files available in the Dropbox, upload them to the Dropbox plugin's "
+"files/ folder on the server.  Dropbox files can be added in bulk to your "
+"site from this page, or added to individual items through an item's admin "
+"interface."
+msgstr "为使Dropbox的文件可以使用，把它们上传到服务器上Dropbox插件的files/文件夹里。在本页可以给您的网站批量添加Dropbox文件，或者可以在条目的管理界面上添加到单个条目中。"
+
+#: views/admin/index/index.php:27
+msgid "Batch Add Items"
+msgstr "批量添加条目"
+
+#: views/admin/index/index.php:30
+msgid ""
+"For each file selected, a new item will be created. The properties set to "
+"the right will be applied to each new item."
+msgstr "对每个选中的文件，都会创建一个新条目。右边设定的属性会应用于每个新条目。"
+
+#: views/admin/index/index.php:38
+msgid "Upload Files as Items"
+msgstr "上传文件为条目"

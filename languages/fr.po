@@ -1,0 +1,83 @@
+# Translation for the Dropbox plugin for Omeka.
+# Copyright (C) 2013 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# symac <wikitipiac@laposte.net>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: http://github.com/omeka/plugin-Dropbox/issues\n"
+"POT-Creation-Date: 2013-01-23 21:49-0500\n"
+"PO-Revision-Date: 2017-09-19 20:23+0000\n"
+"Last-Translator: symac <wikitipiac@laposte.net>\n"
+"Language-Team: French (http://www.transifex.com/omeka/omeka/language/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: DropboxPlugin.php:46
+msgid "Dropbox"
+msgstr "Dropbox"
+
+#: DropboxPlugin.php:75
+msgid "Add Dropbox Files"
+msgstr "Ajouter des fichiers Dropbox"
+
+#: DropboxPlugin.php:91 views/admin/index/dropboxlist.php:2
+msgid "The Dropbox files directory must be both readable and writable."
+msgstr "Le répertoire \"files\" de Dropbox doit être accessible en lecture et en écriture."
+
+#: helpers/DropboxFunctions.php:73
+msgid "The given path is invalid."
+msgstr "Le dossier indiqué n'est pas valide."
+
+#: helpers/DropboxFunctions.php:76
+#, php-format
+msgid "The file \"%s\" does not exist or is not readable."
+msgstr "Le fichier \"%s\" n'existe pas ou n'est pas lisible."
+
+#: helpers/DropboxFunctions.php:79
+#, php-format
+msgid "The file \"%s\" is not readable."
+msgstr "Le fichier \"%s\" n'est pas lisible."
+
+#: views/admin/index/dropboxlist.php:6
+msgid "No files have been uploaded to the dropbox."
+msgstr "Aucun fichier n'a été téléchargé dans Dropbox."
+
+#: views/admin/index/dropboxlist.php:62
+msgid "Filter files by name:"
+msgstr "Filtrer les fichiers par nom :"
+
+#: views/admin/index/dropboxlist.php:64
+msgid "Show All"
+msgstr "Tout afficher"
+
+#: views/admin/index/dropboxlist.php:74
+msgid "File Name"
+msgstr "Nom de fichier"
+
+#: views/admin/index/index.php:20
+msgid ""
+"To make files available in the Dropbox, upload them to the Dropbox plugin's "
+"files/ folder on the server.  Dropbox files can be added in bulk to your "
+"site from this page, or added to individual items through an item's admin "
+"interface."
+msgstr "Pour rendre les fichiers disponibles dans Dropbox, téléchargez les dans le dossier files/ du répertoire Dropbox sur le serveur. Les fichiers Dropbox peuvent être ajouté en lot à votre site depuis cette page, ou associés à des contenus spécifiques dans l'interface d'administration des contenus."
+
+#: views/admin/index/index.php:27
+msgid "Batch Add Items"
+msgstr "Ajouter des contenus par lot."
+
+#: views/admin/index/index.php:30
+msgid ""
+"For each file selected, a new item will be created. The properties set to "
+"the right will be applied to each new item."
+msgstr "Pour chaque fichier sélectionné, un nouveau contenu sera créé. Les propriété seront définies à droite seront appliquées à chaque nouveau contenu."
+
+#: views/admin/index/index.php:38
+msgid "Upload Files as Items"
+msgstr "Transformer les fichiers en contenus."

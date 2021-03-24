@@ -1,0 +1,83 @@
+# Translation for the Dropbox plugin for Omeka.
+# Copyright (C) 2013 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# Naosuke Okamoto, 2018
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: http://github.com/omeka/plugin-Dropbox/issues\n"
+"POT-Creation-Date: 2013-01-23 21:49-0500\n"
+"PO-Revision-Date: 2018-05-01 03:26+0000\n"
+"Last-Translator: Naosuke Okamoto\n"
+"Language-Team: Japanese (http://www.transifex.com/omeka/omeka/language/ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: DropboxPlugin.php:46
+msgid "Dropbox"
+msgstr "Dropbox"
+
+#: DropboxPlugin.php:75
+msgid "Add Dropbox Files"
+msgstr "Dropboxファイルを追加"
+
+#: DropboxPlugin.php:91 views/admin/index/dropboxlist.php:2
+msgid "The Dropbox files directory must be both readable and writable."
+msgstr "Dropboxファイルのディレクトリは、読み書き可能でなければなりません。"
+
+#: helpers/DropboxFunctions.php:73
+msgid "The given path is invalid."
+msgstr "指定されたパスは無効です。"
+
+#: helpers/DropboxFunctions.php:76
+#, php-format
+msgid "The file \"%s\" does not exist or is not readable."
+msgstr "\"%s\" ファイルは存在しないか、読み込めません。"
+
+#: helpers/DropboxFunctions.php:79
+#, php-format
+msgid "The file \"%s\" is not readable."
+msgstr "\"%s\" ファイルは読み込みできません。"
+
+#: views/admin/index/dropboxlist.php:6
+msgid "No files have been uploaded to the dropbox."
+msgstr "ファイルはDropboxにアップロードされていません。"
+
+#: views/admin/index/dropboxlist.php:62
+msgid "Filter files by name:"
+msgstr "名前でファイルをフィルタリングする："
+
+#: views/admin/index/dropboxlist.php:64
+msgid "Show All"
+msgstr "すべて表示"
+
+#: views/admin/index/dropboxlist.php:74
+msgid "File Name"
+msgstr "ファイル名"
+
+#: views/admin/index/index.php:20
+msgid ""
+"To make files available in the Dropbox, upload them to the Dropbox plugin's "
+"files/ folder on the server.  Dropbox files can be added in bulk to your "
+"site from this page, or added to individual items through an item's admin "
+"interface."
+msgstr "Dropboxでファイルを利用するには、それらをサーバー上のDropboxプラグインのファイル/フォルダにアップロードします。 Dropboxファイルは、このページからサイトに一括して追加することも、アイテムの管理インターフェースから個々のアイテムに追加することもできます。"
+
+#: views/admin/index/index.php:27
+msgid "Batch Add Items"
+msgstr "アイテムの一括追加"
+
+#: views/admin/index/index.php:30
+msgid ""
+"For each file selected, a new item will be created. The properties set to "
+"the right will be applied to each new item."
+msgstr "選択したファイルごとに、新しいアイテムを作成します。 右側に設定されたプロパティは新しいアイテムに適用されます。"
+
+#: views/admin/index/index.php:38
+msgid "Upload Files as Items"
+msgstr "ファイルをアイテムとしてアップロードする"

@@ -1,0 +1,84 @@
+# Translation for the Dropbox plugin for Omeka.
+# Copyright (C) 2013 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# Jiří Vírava <appukonrad@gmail.com>, 2017
+# MICHAL D. <black23@gmail.com>, 2013-2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: http://github.com/omeka/plugin-Dropbox/issues\n"
+"POT-Creation-Date: 2013-01-23 21:49-0500\n"
+"PO-Revision-Date: 2017-11-15 16:28+0000\n"
+"Last-Translator: Jiří Vírava <appukonrad@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/omeka/omeka/language/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
+
+#: DropboxPlugin.php:46
+msgid "Dropbox"
+msgstr "Dropbox"
+
+#: DropboxPlugin.php:75
+msgid "Add Dropbox Files"
+msgstr "Přidat soubory z Dropboxu"
+
+#: DropboxPlugin.php:91 views/admin/index/dropboxlist.php:2
+msgid "The Dropbox files directory must be both readable and writable."
+msgstr "Adresář Dropboxu musí být čitelný i zapisovatelný."
+
+#: helpers/DropboxFunctions.php:73
+msgid "The given path is invalid."
+msgstr "Zadaná cesta je naplatná."
+
+#: helpers/DropboxFunctions.php:76
+#, php-format
+msgid "The file \"%s\" does not exist or is not readable."
+msgstr "Soubor \"%s\" neexistuje nebo není čitelný."
+
+#: helpers/DropboxFunctions.php:79
+#, php-format
+msgid "The file \"%s\" is not readable."
+msgstr "Soubor \"%s\" není čitelný."
+
+#: views/admin/index/dropboxlist.php:6
+msgid "No files have been uploaded to the dropbox."
+msgstr "V dropboxu nejsou žádné soubory."
+
+#: views/admin/index/dropboxlist.php:62
+msgid "Filter files by name:"
+msgstr "Filtrovat soubory podle jména:"
+
+#: views/admin/index/dropboxlist.php:64
+msgid "Show All"
+msgstr "Ukázat vše"
+
+#: views/admin/index/dropboxlist.php:74
+msgid "File Name"
+msgstr "Název souboru"
+
+#: views/admin/index/index.php:20
+msgid ""
+"To make files available in the Dropbox, upload them to the Dropbox plugin's "
+"files/ folder on the server.  Dropbox files can be added in bulk to your "
+"site from this page, or added to individual items through an item's admin "
+"interface."
+msgstr "Chcete-li soubory zpřístupnit v Dropboxu, nahrajte je do souborů / složek pluginu Dropbox na serveru. Dropbox soubory mohou být přidány hromadně na váš web z této stránky, nebo přidávny k jednotlivým položkám přes administrační rozhraní."
+
+#: views/admin/index/index.php:27
+msgid "Batch Add Items"
+msgstr "Dávkové přidání položek"
+
+#: views/admin/index/index.php:30
+msgid ""
+"For each file selected, a new item will be created. The properties set to "
+"the right will be applied to each new item."
+msgstr ""
+
+#: views/admin/index/index.php:38
+msgid "Upload Files as Items"
+msgstr "Načíst soubory jako položky"

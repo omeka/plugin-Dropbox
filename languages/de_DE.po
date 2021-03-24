@@ -1,0 +1,83 @@
+# Translation for the Dropbox plugin for Omeka.
+# Copyright (C) 2013 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# Roland Keck <roland.keck@web.de>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: http://github.com/omeka/plugin-Dropbox/issues\n"
+"POT-Creation-Date: 2013-01-23 21:49-0500\n"
+"PO-Revision-Date: 2017-09-19 20:23+0000\n"
+"Last-Translator: Roland Keck <roland.keck@web.de>\n"
+"Language-Team: German (Germany) (http://www.transifex.com/omeka/omeka/language/de_DE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: DropboxPlugin.php:46
+msgid "Dropbox"
+msgstr "Dropbox"
+
+#: DropboxPlugin.php:75
+msgid "Add Dropbox Files"
+msgstr "Dropbox Dateien hunzufügen"
+
+#: DropboxPlugin.php:91 views/admin/index/dropboxlist.php:2
+msgid "The Dropbox files directory must be both readable and writable."
+msgstr "Das Dropbox Verzeichnis muss lesbar und beschreibbar sein."
+
+#: helpers/DropboxFunctions.php:73
+msgid "The given path is invalid."
+msgstr "Ungültige Pfadangabe."
+
+#: helpers/DropboxFunctions.php:76
+#, php-format
+msgid "The file \"%s\" does not exist or is not readable."
+msgstr "Die Datei \"%s\" existiert nicht oder ist nicht lesbar."
+
+#: helpers/DropboxFunctions.php:79
+#, php-format
+msgid "The file \"%s\" is not readable."
+msgstr "Die Datei \"%s\" ist nicht lesbar."
+
+#: views/admin/index/dropboxlist.php:6
+msgid "No files have been uploaded to the dropbox."
+msgstr "Keine Dateien sind in die Dropbox hochgeladen worden."
+
+#: views/admin/index/dropboxlist.php:62
+msgid "Filter files by name:"
+msgstr "Dateien nach Namen filtern:"
+
+#: views/admin/index/dropboxlist.php:64
+msgid "Show All"
+msgstr "Alle anzeigen"
+
+#: views/admin/index/dropboxlist.php:74
+msgid "File Name"
+msgstr "Datename"
+
+#: views/admin/index/index.php:20
+msgid ""
+"To make files available in the Dropbox, upload them to the Dropbox plugin's "
+"files/ folder on the server.  Dropbox files can be added in bulk to your "
+"site from this page, or added to individual items through an item's admin "
+"interface."
+msgstr "Um Dateien in Dropbox bereitzustellen, laden Sie diese in die entsprechenden Verzeichnisse auf dem Dropbox-Server. Dateien können entweder auf einmal in Ihre Site von dieser Seite aufgenommen werden oder einzeln über das entsprechende Admin Interface für Objekte."
+
+#: views/admin/index/index.php:27
+msgid "Batch Add Items"
+msgstr "Objekte im Batch laden"
+
+#: views/admin/index/index.php:30
+msgid ""
+"For each file selected, a new item will be created. The properties set to "
+"the right will be applied to each new item."
+msgstr "Für jede ausgewähkte Datei wird ein neues Objekt erstellt. Die Einstellungen auf der rechten Seite werden auf jedes dieser neuen Objekte angewandt."
+
+#: views/admin/index/index.php:38
+msgid "Upload Files as Items"
+msgstr "Dateien als Objekte hochladen"
