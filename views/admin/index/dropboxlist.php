@@ -63,22 +63,24 @@
             <input type="text" id="dropbox-file-filter">
             <button type="button" id="dropbox-show-all" class="blue"><?php echo __('Show All'); ?></button>
         </p>
-        <table>
-            <colgroup>
-                <col style="width: 2em">
-                <col>
-            </colgroup>
-            <thead>
-                <tr>
-                    <th><input type="checkbox" id="dropbox-select-all" class="dropbox-js" style="display:none"></th>
-                    <th><?php echo __('File Name'); ?></th>
-                </tr>
-            </thead>
-            <tbody id="dropbox-file-checkboxes">
-            <?php foreach ($fileNames as $fileName): ?>
-                <tr><td><input type="checkbox" name="dropbox-files[]" value="<?php echo html_escape($fileName); ?>"/></td><td><?php echo html_escape($fileName); ?></td></tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table>
+                <colgroup>
+                    <col style="width: 2em">
+                    <col>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="dropbox-select-all" class="dropbox-js" style="display:none"></th>
+                        <th><?php echo __('File Name'); ?></th>
+                    </tr>
+                </thead>
+                <tbody id="dropbox-file-checkboxes">
+                <?php foreach ($fileNames as $fileName): ?>
+                    <tr><td><input type="checkbox" name="dropbox-files[]" value="<?php echo html_escape($fileName); ?>"/></td><td><?php echo html_escape($fileName); ?></td></tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     <?php endif; ?>
 <?php endif ?>
