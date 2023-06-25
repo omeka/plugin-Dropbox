@@ -5,6 +5,14 @@
     <?php if (!$fileNames): ?>
         <p><strong><?php echo __('No files have been uploaded to the dropbox.'); ?></strong></p>
     <?php else: ?>
+               <!-- When processing more than 1000 files, they are not placed into the
+                selected Collection, and no tags are applied.  To avoid this,
+                show the number of files in the Dropbox, and if there are more
+                than 1000, put up an alert -->
+        <?php echo '<h3>File count:'.sizeof($fileNames)."</h3>";
+                if (sizeof($fileNames)>999) :
+                echo "<h4 class=error>Too many files - must be less than 1000.  Filter to reduce total</h4>";
+                endif; ?>
         <script type="text/javascript">
             function dropboxSelectAllCheckboxes(checked) {
                 jQuery('#dropbox-file-checkboxes tr:visible input').each(function() {
