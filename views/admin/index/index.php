@@ -66,7 +66,7 @@ echo __("To make files available in the Dropbox, upload them to the Dropbox plug
                         echo $this->formSelect(
                             'dropbox-item_type-id',
                             null,
-                            array('id' => 'item-type'),
+                            array('id' => 'dropbox-item_type-id'),
                             get_table_options('ItemType')
                         );
                     ?>
